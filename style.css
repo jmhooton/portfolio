@@ -1,0 +1,58 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    max-width: 750px;
+    margin: 60px auto;
+    padding: 0 15px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #222020;
+    background: #faf7f7;
+}
+
+h1 {
+    margin-bottom: 4px;
+    margin-left: 6px;
+}
+
+.h1p {
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #666060;
+    margin-left: 8px;
+}
+
+.acard {
+    display: block;
+    margin-bottom: 20px;
+    padding: 22px;
+    color: inherit;
+    text-decoration: none;
+    background: #fffdfd;
+    border: 2px solid #ded8d8;
+}
+
+.acard:hover {
+    border-color: #9c9393;
+}
+
+.acard h2 {
+    margin: 0 0 7px;
+    font-size: 21px;
+}
+
+.acard p {
+    margin: 0;
+    color: #666060;
+}
+
+.links {
+    margin-top: 30px;
+    margin-left: 5px;
+}
+
+.links a {
+    color: inherit;
+}
