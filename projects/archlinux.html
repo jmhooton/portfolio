@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arch Linux</title>
+    <link rel="stylesheet" href="../project.css">
+</head>
+<body>
+    <div class="side">
+        <a class="home" href="../index.html">Home</a>
+        <nav>
+            <a href="#background">Background</a>
+            <a href="#mysystem">My System</a>
+            <a href="#commandline">Command Line</a>
+            <a href="#configuration">Configuration</a>
+            <a href="#learned">What I Learned</a>
+        </nav>
+    </div>
+
+    <main>
+        <h1>Arch Linux</h1>
+        <p class="h1p">My Linux system, configuration and administration</p>
+
+        <section id="background">
+            <h2>Background</h2>
+            <p>
+                About one year ago I installed Arch Linux to be my main OS, replacing Linux Mint which up until
+                that point was my main daily driver for a couple years. Overall I have been running a version of
+                Linux for about 3 years.
+            </p>
+            <p>
+                This project will showcase my current system, how I use it, manage it, and what I learnt during that time.
+            </p>
+        </section>
+
+        <section id="mysystem">
+            <h2>My System</h2>
+
+            <img src="../images/fetch.png" alt="Arch Linux desktop with fastfetch">
+
+            <p>
+                <strong>Distribution:</strong> Arch Linux<br>
+                <strong>File System:</strong> Btrfs<br>
+                <strong>Init System:</strong> systemd<br>
+                <strong>Display Protocol:</strong> Wayland<br>
+                <strong>Compositor/Window Manager:</strong> Sway<br>
+                <strong>Terminal Emulator:</strong> foot<br>
+                <strong>Shell:</strong> zsh<br>
+                <strong>Application Launcher:</strong> wmenu
+            </p>
+
+            <h3>Btrfs</h3>
+            <p>
+                I use the copy-on-write filesystem Btrfs, over the more commonplace ext4 because of the many additional neat features it provides.
+                Some of those being subvolumes, transparent compression, checksumming and most famously snapshots/rollbacks. Filesystems such as ext4,
+                while probably more stable and reliable, lack many of these conveniences, which is why I chose Btrfs.
+            </p>
+
+            <h3>systemd</h3>
+            <p>
+                Arch Linux comes with systemd as its service management and init system. I use commands like systemctl for managing
+                services and other commands like journalctl to inspect system log files when things go awry.
+            </p>
+
+            <h3>Wayland and Sway</h3>
+            <p>
+                Wayland is the display protocol I use with Sway as the compositor for my graphical environment. Because I wanted the
+                newer and more modern display technology with better application isolation, I went with Wayland over the older, increasingly
+                being replaced by the former, X11. Like my previous Mint installation, I used a tiling window manager for the increased
+                efficiency and snappy workflow it allows; only difference being using Sway (Wayland compositor) over dwm (X11 window manager).
+            </p>
+
+            <h3>foot and zsh</h3>
+            <p>
+                foot (originating from foo-terminal), is a simple and fast terminal emulator for Wayland. I chose it as it was more slim and lightweight
+                relative to the other current Wayland terminal emulators available. And no terminal emulator is complete without a shell
+                to go along side, for this I chose zsh, as while not as lightweight as my terminal emulator, its features like history,
+                globbing, customisation, autocomplete and others make up for it.
+            </p>
+
+            <h3>wmenu</h3>
+            <p>
+                wmenu is a ultra light application launcher that allows one to launch programs via text after a keybind similar
+                to Windows Start and MacOS Spotlight Search. wmenu is a Wayland port of a very famous and minimal program, dmenu.
+            </p>
+        </section>
+
+        <section id="commandline">
+            <h2>The Command Line and System Administration</h2>
+
+            <img src="../images/navigation.png" alt="Navigation and file manipulation">
+
+            <p>
+                When using Linux one thing you will have to get quickly comfortable with is using the terminal/command line to do
+                day to day computer management and administration; rather than using entirely graphical tools. Common uses are navigating
+                files, investigating services, managing packages, all different kinds of troubleshooting and checking system diagnostics.
+            </p>
+
+            <h3>Files and Navigation</h3>
+            <pre>pwd
+ls
+cd ~/Files
+mkdir Directory
+touch newfile.txt
+cp file.txt Directory/
+mv file.txt Directory/
+mv oldname.txt newname.txt</pre>
+
+            <p>
+                pwd prints a full path to the current working directory, ls lists files and directories, cd changes the current working
+                directory. mkdir and touch create new directories and empty files respectively. To copy, "cut" and rename files, there is
+                cp and mv, cp being short for copy, and mv being short for move.
+            </p>
+            <p>
+                Here some common PowerShell equivalents would be Get-Location, Set-Location, New-Item, Copy-Item, Move-Item.
+            </p>
+
+            <h3>Text Search and Inspection</h3>
+            <pre>grep "error" log.txt
+find ~/Directory -name "*.txt"</pre>
+
+            <p>
+                Use grep to search input for lines matching a pattern, be it from a file, or from a pipeline. It's very common to use grep
+                when searching for particular lines in config files, logs and general command output. The find command acts on directories,
+                searches through them and finds selected files.
+            </p>
+
+            <h3>Pacman, the AUR, and Package Management</h3>
+            <pre>sudo pacman -Syu
+pacman -Ss firefox
+pacman -Qi firefox</pre>
+
+            <p>
+                Pacman is the Arch Linux package manager, and one of the biggest reasons people use Arch Linux over other distributions.
+                What makes it special is its speed combined with Arch's rolling-release update model.
+                I use it to update, remove, search through and manage my packages on my system.
+                The AUR or "Arch User Repository", is another reason so many choose Arch over other Linux distributions. It is a community
+                maintained, user-submitted, massive collection of 10s of thousands of build scripts for your system.
+            </p>
+
+            <h3>Services and Logs</h3>
+            <pre>systemctl status NetworkManager
+journalctl -u NetworkManager -b</pre>
+
+            <p>
+                I use systemctl to manage and investigate systemd services. For example I can check whether NetworkManager is currently
+                running, start it, restart it, stop it and configure whether it starts automatically at boot;
+                and when troubleshooting, journalctl provides the logs necessary to find out what's gone wrong.
+            </p>
+
+            <h3>Networking</h3>
+            <pre>ip addr
+ip route
+ping 1.1.1.1</pre>
+
+            <p>
+                ip addr shows you network interfaces and addresses, ip route shows the routing table and ping sends ICMP echo requests to an IP.
+                These are the standard commands used when checking network information and diagnosing what's working or failing.
+            </p>
+
+            <h3>Filesystems and Storage</h3>
+            <pre>lsblk -f
+mount
+findmnt
+df -h</pre>
+
+            <p>
+                lsblk lists hard drives, SSDs, USBs, how they are partitioned and supplying the size of them; the -f flag can show additional filesystem info.
+                mount mounts filesystems to your system; commonly in the /mnt directory. findmnt finds and lists currently mounted
+                filesystems in your terminal. df -h lists how much disk space is free in a human readable format via the -h flag
+                (shows GB/MB rather than bytes).
+            </p>
+        </section>
+
+        <section id="configuration">
+            <h2>Configuring Linux</h2>
+            <p>
+                Most things in Linux and especially Arch Linux, are configured via text files rather than GUIs.
+            </p>
+            <p>
+                Here is a section of my Sway/window manager config for example:
+            </p>
+
+            <img src="../images/sway.png" alt="Sway config">
+
+            <p>
+                I disabled a lot of default keybinds and remapped most keys in Sway, customised the border colour, removed edge borders and shrunk the tiling gaps.
+                Additionally I added some keybinds to run small Bash programs to tell the time via mako, my notification daemon. I also have other small scripts for
+                taking and saving screenshots aswell via grim and slurp (yes those are the names).
+            </p>
+        </section>
+
+        <section id="learned">
+            <h2>What I Learned</h2>
+            <p>
+                During my time using Arch Linux and Linux in general, I learned and gained practical experience with:
+            </p>
+            <ul>
+                <li>Linux filesystems and storage</li>
+                <li>Package management and managers</li>
+                <li>Networking</li>
+                <li>Configuration files</li>
+                <li>Shells and the command line interface</li>
+                <li>Troubleshooting Linux</li>
+                <li>systemd services and logs</li>
+                <li>Comfort around terminals</li>
+                <li>General understanding and awareness of a lot of Linux and programming software</li>
+                <li>Understanding of how Linux systems are built and put together</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
