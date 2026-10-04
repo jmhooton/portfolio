@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arch Linux</title>
+    <title>Arch Linux Configuration</title>
     <link rel="stylesheet" href="../project.css">
 </head>
 <body>
@@ -37,7 +37,7 @@
         <section id="mysystem">
             <h2>My System</h2>
 
-            <img src="../images/fetch.png" alt="Arch Linux desktop with fastfetch">
+            <img src="../images/fetch.png">
 
             <p>
                 <strong>Distribution:</strong> Arch Linux<br>
@@ -53,8 +53,9 @@
             <h3>Btrfs</h3>
             <p>
                 I use the copy-on-write filesystem Btrfs, over the more commonplace ext4 because of the many additional neat features it provides.
-                Some of those being subvolumes, transparent compression, checksumming and most famously snapshots/rollbacks. Filesystems such as ext4,
-                while probably more stable and reliable, lack many of these conveniences, which is why I chose Btrfs.
+                Some of those being subvolumes, transparent compression, checksumming and most famously snapshots/rollbacks.
+                
+                Filesystems such as ext4, while probably more stable and reliable, lack many of these conveniences, which is why I chose Btrfs.
             </p>
 
             <h3>systemd</h3>
@@ -67,8 +68,10 @@
             <p>
                 Wayland is the display protocol I use with Sway as the compositor for my graphical environment. Because I wanted the
                 newer and more modern display technology with better application isolation, I went with Wayland over the older, increasingly
-                being replaced by the former, X11. Like my previous Mint installation, I used a tiling window manager for the increased
-                efficiency and snappy workflow it allows; only difference being using Sway (Wayland compositor) over dwm (X11 window manager).
+                being replaced by the former, X11.
+                
+                Like my previous Mint installation, I used a tiling window manager for the increased efficiency and snappy workflow it allows;
+                only difference being using Sway (Wayland compositor) over dwm (X11 window manager).
             </p>
 
             <h3>foot and zsh</h3>
@@ -89,7 +92,7 @@
         <section id="commandline">
             <h2>The Command Line and System Administration</h2>
 
-            <img src="../images/navigation.png" alt="Navigation and file manipulation">
+            <img src="../images/navigation.png">
 
             <p>
                 When using Linux one thing you will have to get quickly comfortable with is using the terminal/command line to do
@@ -135,6 +138,7 @@ pacman -Qi firefox</pre>
                 Pacman is the Arch Linux package manager, and one of the biggest reasons people use Arch Linux over other distributions.
                 What makes it special is its speed combined with Arch's rolling-release update model.
                 I use it to update, remove, search through and manage my packages on my system.
+                
                 The AUR or "Arch User Repository", is another reason so many choose Arch over other Linux distributions. It is a community
                 maintained, user-submitted, massive collection of 10s of thousands of build scripts for your system.
             </p>
@@ -182,10 +186,11 @@ df -h</pre>
                 Here is a section of my Sway/window manager config for example:
             </p>
 
-            <img src="../images/sway.png" alt="Sway config">
+            <img src="../images/sway.png">
 
             <p>
                 I disabled a lot of default keybinds and remapped most keys in Sway, customised the border colour, removed edge borders and shrunk the tiling gaps.
+
                 Additionally I added some keybinds to run small Bash programs to tell the time via mako, my notification daemon. I also have other small scripts for
                 taking and saving screenshots aswell via grim and slurp (yes those are the names).
             </p>
