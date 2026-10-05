@@ -11,8 +11,8 @@
         <a class="home" href="../index.html">Home</a>
         <nav>
             <a href="#overview">Overview</a>
-            <a href="#applicationtogateway">Application to Gateway</a>
-            <a href="#gatewaytointernet">Gateway to Internet</a>
+            <a href="#applicationgateway">Application to Gateway</a>
+            <a href="#gatewayinternet">Gateway to Internet</a>
             <a href="#learned">What I Learned</a>
         </nav>
     </div>
@@ -67,7 +67,7 @@ Gateway: 192.168.29.2
 DNS:     192.168.29.2</pre>
 
             <p>
-                The /24 (alternatively written: 255.255.255.0) prefix is what defines the local subnet and its size. Because internet destinations are outside this subnet,
+                The /24 (alternatively written: 255.255.255.0) prefix, plus the IP, is what defines the local subnet and its size. Because internet destinations are outside this subnet,
                 traffic that doesn't have a more specified route will be sent to my default gateway at 192.168.29.2.
             </p>
             <p>
@@ -109,7 +109,7 @@ DNS:     192.168.29.2</pre>
             <h2>From Gateway to Internet</h2>
 
             <p>
-                After traffic is sent to the default gateway, routing is the next piece that determines where that traffic goes next.
+                Now to send netowrk traffic beyond the local subnet and towards the internet, Windows will consult its local routing table to determine the next hop.
             </p>
 
             <p>I found my virtual machine's default route via:</p>

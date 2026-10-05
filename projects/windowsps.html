@@ -166,8 +166,8 @@
             <img src="../images/startuptype.png">
 
             <p>
-                This confirmed whether Spooler may have had just been stopped from it's startup configuration. And since it reported "automatic"
-                I know something must have happened during boot and now that stopped it (me).
+                This confirms whether Spooler may have had just been stopped from it's startup configuration. And since it reported "automatic"
+                I know its stoppped state must have occurred during or after its startup for it to be this way.
             </p>
 
             <h3>Cause/Fix</h3>
@@ -242,10 +242,10 @@ else {
                 gateway; this avoids selecting otherwise disconnected or currently unused adapters.
             </p>
             <p>
-                After this it performs multiple checks with if-else conditional-logic testing a few different connections. The first test with the output "Gateway"
-                is for whether I can reach the my current default gateway, the second with "Internet" is for whether I can connect to an external IP without
-                using a DNS server; the third test "DNS", tests whether I can get name resolution; and the fourth
-                and final test tests whether I can connect to an HTTPS port over TCP.
+                After this it performs multiple checks with if-else conditional-logic testing a few different connections. The first test with the output "Internet"
+                is for whether I can connect to an external IP without using a DNS server, the second with "Gateway" is for whether I can
+                reach my default gateway; the third test "TCP" tests whether I can connect to an HTTPS port over TCP; and the fourth
+                and final test "DNS" tests whether I can get name resolution.
             </p>
             <p>
                 If one of these tests fail, it helps me narrow down which part of connectivity might be causing the issue.
@@ -260,7 +260,7 @@ else {
         <section id="learned">
             <h2>What I Learned</h2>
             <p>
-                This project and just my general Windows study and use, gave me practical experience troubleshooting and diagnosing serveral different
+                This project and just my general Windows study and use, gave me practical experience troubleshooting and diagnosing several different
                 types of Windows related problems rather than only knowing and applying predefined solutions. Here I demonstrated the ability
                 to isolate DNS from general connectivity, how to check NTFS permissions and how to grant and revoke them, and the skills to manage
                 Windows services if for some reason Spooler (among other services) is broken again.

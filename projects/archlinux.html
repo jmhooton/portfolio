@@ -131,7 +131,7 @@ mv oldname.txt newname.txt</pre>
 
             <p>
                 pwd prints a full path of the current working directory, ls lists files and directories, cd changes the current working
-                directory. mkdir and touch create new directories and empty files respectively. To copy, "cut" and rename files, there exists
+                directory. mkdir and touch create new directories and empty files respectively (touch updates instead if the file exists). To copy, "cut" and rename files, there exists
                 cp and mv, cp being short for copy, and mv being short for move.
             </p>
             <p>
@@ -196,7 +196,7 @@ findmnt
 df -h</pre>
 
             <p>
-                lsblk lists hard drives, SSDs, USBs, how they are partitioned and supplies the size of them; the -f flag can show additional filesystem info.
+                Plain lsblk lists hard drives, SSDs, USBs, and supplies the size of them, while the optional -f flag can show additional filesystem info.
                 mount mounts filesystems to your system; commonly in the /mnt directory. findmnt finds and lists currently mounted
                 filesystems in your terminal. df -h lists how much disk space is free in a human readable format via the -h flag
                 (shows GB/MB rather than bytes).

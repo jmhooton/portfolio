@@ -44,7 +44,7 @@
 }           </pre>
 
             <p>
-                A structs purpose is to group related data into a single type. In this example, every issue here contains an ID number, a description,
+                A struct's purpose is to group related data into a single type. In this example, every issue here contains an ID number, a description,
                 and a boolean representing whether the issue has been "fixed". The description value is stored as a <code>String</code>, allowing each
                 issue ownership of its text.
             </p>
@@ -144,7 +144,7 @@ fn print(&amp;self) {
         <section id="together">
             <h2>Putting Everything Together</h2>
 
-            <p>A empty vector is created using <code>Vec::new()</code> and <code>Issue</code>'s will be one-by-one pushed into it:</p>
+            <p>A empty vector is created using <code>Vec::new()</code> and issues will be one-by-one pushed into it:</p>
 
             <pre>let mut issues: Vec&lt;Issue&gt; = Vec::new();
 
