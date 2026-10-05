@@ -28,8 +28,8 @@
                 open internet. I will also be using a Windows 11 virtual machine to demonstrate all this.
             </p>   
             <p>
-                In this project, I used VMware tools and built-in Windows tools for networking and investigation to how IP, DNS, gateways, subnets,
-                ARP, routing and NAT all work together. And rather than explaining each concept seperately I will follow the direct path network
+                In this project, I used VMware tools and built-in Windows tools for networking and investigation to demonstrate how IP, DNS, gateways, subnets,
+                ARP, routing and NAT all work together. And rather than explaining each concept separately I will follow the direct path network
                 traffic takes from my virtual machine, through VMware's virtual network, to my home network, and finally, the internet.
             </p>
         </section>
@@ -87,7 +87,7 @@ DNS:     192.168.29.2</pre>
             <img src="../images/arp.png">
 
             <p>
-                ARP's purpose is to map local IPv4 addresses to MAC addresses, it is somewhat of a language translater. When your device has an IP address, like the default gateway's IP for example,
+                ARP's purpose is to map local IPv4 addresses to MAC addresses, it is somewhat of a language translator. When your device has an IP address, like the default gateway's IP for example,
                 it needs to "ARP" for the gateway's MAC address so it can pinpoint exactly which device the IP address belongs to, without the MAC address, your device wouldn't really
                 know what to do with the IP; but with it, it can understand exactly who is who and where to go next on your local network.
             </p>
@@ -96,7 +96,7 @@ DNS:     192.168.29.2</pre>
                 Here's the general process so far:
             </p>
             <p>
-                Try to connect to github.com → ARP for DNS server MAC address → connect to DNS server → DNS server resolves domain name and provides the associated IP address → Windows sees that the IP address
+                Try to connect to github.com → Ask DNS server to resolve the domain → Receive the domain's IP address → Windows sees that the IP address
                 lies outside your local subnet → ARP for default gateway's MAC address → Connect to default gateway.
             </p>
 

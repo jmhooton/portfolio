@@ -144,7 +144,7 @@ fn print(&amp;self) {
         <section id="together">
             <h2>Putting Everything Together</h2>
 
-            <p>Issues are created using <code>Vec::new()</code> and will be one-by-one pushed into a vector:</p>
+            <p>A empty vector is created using <code>Vec::new()</code> and <code>Issue</code>'s will be one-by-one pushed into it:</p>
 
             <pre>let mut issues: Vec&lt;Issue&gt; = Vec::new();
 
@@ -158,7 +158,7 @@ issues.push(Issue::new(
 ));
 issues.push(Issue::new(
     3,
-    String::from("daves doing that thing again..."),
+    String::from("daves doing it again..."),
 ));         </pre>
 
             <p>Then the same created collection, can be borrowed differently depending on what the program will require:</p>
@@ -179,15 +179,13 @@ print_issues(&amp;issues)</pre>
             <p>Running the program shows the second issue's state change:</p>
 
             <pre>Issues before:
-#1 | Wi-Fi isn't working | Fixed?: false
-#2 | Browser won't open | Fixed?: false
-#3 | Dave's doing that thing again | Fixed?: false
+#1 | wifi isnt working!! | Fixed?: false
+#2 | browser wont open | Fixed?: false
+#3 | daves doing it again... | Fixed?: false
 Issues after:
-#1 | Wi-Fi isn't working | Fixed?: false
-#2 | Browser won't open | Fixed?: true
-#3 | Dave's doing that thing again | Fixed?: false</pre>
-
-            <!-- Optional screenshot: place a terminal screenshot of `cargo run` here, e.g. ../images/rust-output.png -->
+#1 | wifi isnt working!! | Fixed?: false
+#2 | browser wont open | Fixed?: true
+#3 | daves doing it again... | Fixed?: false</pre>
         </section>
 
         <section id="learned">
