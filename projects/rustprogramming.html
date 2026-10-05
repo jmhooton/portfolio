@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming With Rust</title>
+    <link rel="stylesheet" href="../project.css">
+</head>
+<body>
+    <div class="side">
+        <a class="home" href="../index.html">Home</a>
+        <nav>
+            <a href="#overview">Overview</a>
+            <a href="#representation">Issue Representation</a>
+            <a href="#methods">Methods and Borrowing</a>
+            <a href="#collection">A Collection of Issues</a>
+            <a href="#together">Putting Everything Together</a>
+            <a href="#learned">What I Learned</a>
+        </nav>
+    </div>
+
+    <main>
+        <h1>Programming With Rust</h1>
+        <p class="h1p">A small Rust project and programming concepts.</p>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            <p>
+                In this project I built a small issue tracker in Rust to demonstrate and practise some fundamental programming concepts while also
+                putting my passive knowledge of programming languages, and Rust in particular, to use.
+                This program will store a collection of Issues, display their state, and allow individual issues to be marked as fixed.
+            </p>
+        </section>
+
+        <section id="representation">
+            <h2>Issue Representation</h2>
+
+            <p>Each issue is represented using a <code>struct</code>:</p>
+
+            <pre>struct Issue {
+    number: u32,
+    description: String,
+    is_fixed: bool,
+}           </pre>
+
+            <p>
+                A structs purpose is to group related data into a single type. In this example, every issue here contains an ID number, a description,
+                and a boolean representing whether the issue has been "fixed". The description value is stored as a <code>String</code>, allowing each
+                issue ownership of its text.
+            </p>
+
+            <p>Now to make creating issues simpler and more consistent, I added an associated <code>::new()</code> function for our newly created type:</p>
+
+            <pre>impl Issue {
+    fn new(number: u32, description: String) -&gt; Issue {
+        Issue {
+            number,
+            description,
+            is_fixed: false,
+        }
+    }
+}           </pre>
+
+            <p>
+                Therefore allowing me to create an <code>Issue</code> with <code>Issue::new()</code>, this also ensures that every newly created <code>Issue</code> begins with
+                the <code>is_fixed</code> boolean set to <code>false</code>.
+            </p>
+        </section>
+
+        <section id="methods">
+            <h2>Methods and Borrowing</h2>
+
+            <p>Here I added some methods inside <code>impl</code> to "fix" and print each issue's values:</p>
+
+            <pre>fn fix(&amp;mut self) {
+    self.is_fixed = true;
+}
+
+fn print(&amp;self) {
+    println!(
+        "#{} | {} | Fixed?: {}",
+        self.number,
+        self.description,
+        self.is_fixed
+    );
+}           </pre>
+
+            <p>
+                The two methods here will also demonstrate the difference between immutable and mutable borrowing in Rust. <code>print()</code> uses <code>&amp;self</code>
+                because of its need to only read the issue, while <code>fix()</code> uses <code>&amp;mut self</code> since it needs to change the value of <code>is_fixed</code>. In short:
+                <code>&amp;self</code> has read-only access, whilst <code>&amp;mut self</code> has permission to modify; all this is happening
+                while the issue being borrowed is still owned by the code that created it; the methods used here only borrow access for as
+                long as is needed.
+            </p>
+        </section>
+
+        <section id="collection">
+            <h2>A Collection of Issues</h2>
+
+            <p>Here I store the issues in a vector:</p>
+
+            <pre>let mut issues: Vec&lt;Issue&gt; = Vec::new();</pre>
+
+            <p>
+                <code>Vec&lt;Issue&gt;</code> is a growable collection that contains <code>Issue</code> values. The vector itself is also mutable, as we will be pushing new issues to
+                it during the program.
+            </p>
+
+            <p>
+                To display all the stored issues in the collection, I pass the collection to a function and then have it iterate over
+                its contents:
+            </p>
+
+            <pre>fn print_issues(issues: &amp;[Issue]) {
+    for issue in issues {
+        issue.print();
+    }
+}           </pre>
+
+            <p>
+                This function only needs to read the issues, therefore only requiring a immutably borrowed slice rather than a mutable one.
+            </p>
+
+            <p>And contrasting the immutably borrowed slice, is this mutably borrowed one:</p>
+
+            <pre>fn fix_issue(issues: &amp;mut [Issue], number: u32) {
+    for issue in issues {
+        if issue.number == number {
+            issue.fix();
+            return;
+        }
+    }
+
+    println!("Can't find issue!");
+}           </pre>
+
+            <p>
+                This function will check each issue until it finds the matching number. Once the number has been found, it will call the fix method
+                and return immediately. However, if the loop finishes and does not find a match, the program reports that the
+                issue could not be found.
+            </p>
+        </section>
+
+        <section id="together">
+            <h2>Putting Everything Together</h2>
+
+            <p>Issues are created using <code>Vec::new()</code> and will be one-by-one pushed into a vector:</p>
+
+            <pre>let mut issues: Vec&lt;Issue&gt; = Vec::new();
+
+issues.push(Issue::new(
+    1,
+    String::from("wifi isnt working!!"),
+));
+issues.push(Issue::new(
+    2,
+    String::from("browser wont open"),
+));
+issues.push(Issue::new(
+    3,
+    String::from("daves doing that thing again..."),
+));         </pre>
+
+            <p>Then the same created collection, can be borrowed differently depending on what the program will require:</p>
+
+            <pre>println!("Issues before:");
+print_issues(&amp;issues);
+
+fix_issue(&amp;mut issues, 2);
+
+println!("Issues after:");
+print_issues(&amp;issues)</pre>
+
+            <p>
+                Here, <code>print_issues(&amp;issues)</code> only needs to borrow the collection for reading, whereas <code>fix_issue(&amp;mut issues, 2)</code> receives
+                a mutable borrow, thus allowing changes to the stored <code>Issue</code>'s inside <code>issues</code>.
+            </p>
+
+            <p>Running the program shows the second issue's state change:</p>
+
+            <pre>Issues before:
+#1 | Wi-Fi isn't working | Fixed?: false
+#2 | Browser won't open | Fixed?: false
+#3 | Dave's doing that thing again | Fixed?: false
+Issues after:
+#1 | Wi-Fi isn't working | Fixed?: false
+#2 | Browser won't open | Fixed?: true
+#3 | Dave's doing that thing again | Fixed?: false</pre>
+
+            <!-- Optional screenshot: place a terminal screenshot of `cargo run` here, e.g. ../images/rust-output.png -->
+        </section>
+
+        <section id="learned">
+            <h2>What I Learned</h2>
+
+            <p>
+                This project and my recent general study solified a lot of programming concepts I had floating around in my head for years,
+                i.e., completed a few internet C, Python, JavaScript, Java (etc.) courses.
+            </p>
+
+            <p>
+                Here and recently I was able to solidify what I knew and actually apply that knowledge to something tangible, while also
+                learning about Rust's interesting features such as borrowing and ownership.
+            </p>
+        </section>
+    </main>
+</body>
+</html>

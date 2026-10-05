@@ -79,3 +79,8 @@ main img {
     height: auto;
     margin: 18px 0 24px;
 }
+
+code {
+    font-size: 1em;
+    font-family: Consolas, "Courier New", monospace;
+}

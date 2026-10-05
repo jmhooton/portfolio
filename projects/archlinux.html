@@ -25,12 +25,12 @@
         <section id="background">
             <h2>Background</h2>
             <p>
-                About one year ago I installed Arch Linux to be my main OS, replacing Linux Mint which up until
-                that point was my main daily driver for a couple years. Overall I have been running a version of
+                About one year ago I installed Arch Linux to use as my main operating system, replacing my Linux Mint installation, which up until
+                that point, was the main operating system I used for a couple years. Overall I have been running some version of
                 Linux for about 3 years.
             </p>
             <p>
-                This project will showcase my current system, how I use it, manage it, and what I learnt during that time.
+                In this project, I will showcase my current system, how I use it, manage/administrate it, and some of what I learnt during this time.
             </p>
         </section>
 
@@ -52,52 +52,58 @@
 
             <h3>Btrfs</h3>
             <p>
-                I use the copy-on-write filesystem Btrfs, over the more commonplace ext4 because of the many additional neat features it provides.
-                Some of those being subvolumes, transparent compression, checksumming and most famously snapshots/rollbacks.
+                I use chose the copy-on-write filesystem Btrfs, over the more popular and common ext4 because of the many useful additional features it provides over ext4.
+                Some of these features being: subvolumes, transparent compression, checksumming, RAID, and most famously, snapshots/rollbacks.
                 
-                Filesystems such as ext4, while probably more stable and reliable, lack many of these conveniences, which is why I chose Btrfs.
+                Filesystems such as ext4, while probably more stable and reliable, lack many of these conveniences, which is why I chose it.
             </p>
 
             <h3>systemd</h3>
             <p>
                 Arch Linux comes with systemd as its service management and init system. I use commands like systemctl for managing
-                services and other commands like journalctl to inspect system log files when things go awry.
+                services and other useful commands like journalctl to inspect system log files when things break.
             </p>
 
             <h3>Wayland and Sway</h3>
             <p>
-                Wayland is the display protocol I use with Sway as the compositor for my graphical environment. Because I wanted the
-                newer and more modern display technology with better application isolation, I went with Wayland over the older, increasingly
-                being replaced by the former, X11.
+                Wayland is the display protocol, while Sway is the compositor/windowmanager actually using that protocol.
+                I chose to use Wayland despite owning an Nvidia GPU (works ok tho) as I wanted access to newer and more modern display technology,
+                and the enhanced security model of Wayland is also a nice bonus.
                 
-                Like my previous Mint installation, I used a tiling window manager for the increased efficiency and snappy workflow it allows;
-                only difference being using Sway (Wayland compositor) over dwm (X11 window manager).
+                After you have a chosen display protocol, you also will need a compositor/windowmanager if you want to interact with your desktop with a graphical
+                user interface. While there are many to choose from, I decided to go with sway, as it was relatively stable, tiling, and generally minimal compared to
+                the alternatives.
+
+                In my previous Linux Mint installation, I also used a tiling window manager; only difference being I used Xorg (X11 protocol) and dwm (a X11 windowmanager).
             </p>
 
             <h3>foot and zsh</h3>
             <p>
-                foot (originating from foo-terminal), is a simple and fast terminal emulator for Wayland. I chose it as it was more slim and lightweight
-                relative to the other current Wayland terminal emulators available. And no terminal emulator is complete without a shell
-                to go along side, for this I chose zsh, as while not as lightweight as my terminal emulator, its features like history,
-                globbing, customisation, autocomplete and others make up for it.
+                foot (yeah it's called that...), is currently one of the more simple and fast terminal emulators for Wayland. I chose to use it as it was more slim and lightweight
+                relative to the other current Wayland terminal emulators available.
+
+                For my shell, I chose zsh, as while not as lightweight as my terminal emulator, its QOL features generally make up for it.
             </p>
 
             <h3>wmenu</h3>
             <p>
-                wmenu is a ultra light application launcher that allows one to launch programs via text after a keybind similar
-                to Windows Start and MacOS Spotlight Search. wmenu is a Wayland port of a very famous and minimal program, dmenu.
+                wmenu is a ultra light application launcher that allows me to launch programs via text after I press a keybind, similar functionality can be noted for
+                Windows Start (using Win Key) and the actually more comparable, MacOS Spotlight Search. wmenu is a Wayland port of a very famous and minimal program, dmenu.
             </p>
         </section>
 
         <section id="commandline">
-            <h2>The Command Line and System Administration</h2>
+            <h2>The Command Line And Administration</h2>
 
             <img src="../images/navigation.png">
 
             <p>
-                When using Linux one thing you will have to get quickly comfortable with is using the terminal/command line to do
-                day to day computer management and administration; rather than using entirely graphical tools. Common uses are navigating
-                files, investigating services, managing packages, all different kinds of troubleshooting and checking system diagnostics.
+                When using Linux, there's one thing you will very quickly have to get comfortable with, and that is using the terminal/command line. 
+                
+                It's very common to use it for very basic operations, like opening files, removing them, searching them, basic navigation, checking services, checking permissions, updating your system,
+                turning off your system and so much more. There are some graphical tools for many of these operations, though it's still extremely useful to know how to use the terminal anyways, and a lot of the times it's faster too.
+                
+                In this section, I will show some of the more common commands you'll see, and that which I use and understand.
             </p>
 
             <h3>Files and Navigation</h3>
@@ -111,22 +117,25 @@ mv file.txt Directory/
 mv oldname.txt newname.txt</pre>
 
             <p>
-                pwd prints a full path to the current working directory, ls lists files and directories, cd changes the current working
-                directory. mkdir and touch create new directories and empty files respectively. To copy, "cut" and rename files, there is
+                pwd prints a full path of the current working directory, ls lists files and directories, cd changes the current working
+                directory. mkdir and touch create new directories and empty files respectively. To copy, "cut" and rename files, there exists
                 cp and mv, cp being short for copy, and mv being short for move.
             </p>
             <p>
-                Here some common PowerShell equivalents would be Get-Location, Set-Location, New-Item, Copy-Item, Move-Item.
+                Some common PowerShell equivalents here, would be Get-Location, Set-Location, New-Item, Copy-Item, Move-Item.
             </p>
 
-            <h3>Text Search and Inspection</h3>
+            <h3>Text Search And File Search</h3>
             <pre>grep "error" log.txt
 find ~/Directory -name "*.txt"</pre>
 
             <p>
                 Use grep to search input for lines matching a pattern, be it from a file, or from a pipeline. It's very common to use grep
-                when searching for particular lines in config files, logs and general command output. The find command acts on directories,
-                searches through them and finds selected files.
+                when searching for particular lines in config files, logs and just general command output. The find command acts on directories,
+                searches through them and finds the selected files.
+
+                grep is very useful for finding logs, errors, and finding specific text on your system. And find is (along with searching for log and error files aswell)
+                is very useful when you can't remember where you placed that specifc config file.
             </p>
 
             <h3>Pacman, the AUR, and Package Management</h3>
@@ -136,8 +145,8 @@ pacman -Qi firefox</pre>
 
             <p>
                 Pacman is the Arch Linux package manager, and one of the biggest reasons people use Arch Linux over other distributions.
-                What makes it special is its speed combined with Arch's rolling-release update model.
-                I use it to update, remove, search through and manage my packages on my system.
+                What makes it special is the package managers speed and simplicity combined with Arch's rolling-release update model.
+                I use very often to update, remove, search through, and manage packages on my system.
                 
                 The AUR or "Arch User Repository", is another reason so many choose Arch over other Linux distributions. It is a community
                 maintained, user-submitted, massive collection of 10s of thousands of build scripts for your system.
@@ -170,7 +179,7 @@ findmnt
 df -h</pre>
 
             <p>
-                lsblk lists hard drives, SSDs, USBs, how they are partitioned and supplying the size of them; the -f flag can show additional filesystem info.
+                lsblk lists hard drives, SSDs, USBs, how they are partitioned and supplies the size of them; the -f flag can show additional filesystem info.
                 mount mounts filesystems to your system; commonly in the /mnt directory. findmnt finds and lists currently mounted
                 filesystems in your terminal. df -h lists how much disk space is free in a human readable format via the -h flag
                 (shows GB/MB rather than bytes).
@@ -192,7 +201,7 @@ df -h</pre>
                 I disabled a lot of default keybinds and remapped most keys in Sway, customised the border colour, removed edge borders and shrunk the tiling gaps.
 
                 Additionally I added some keybinds to run small Bash programs to tell the time via mako, my notification daemon. I also have other small scripts for
-                taking and saving screenshots aswell via grim and slurp (yes those are the names).
+                taking and saving screenshots aswell via grim and slurp (yes those are those programs' actual names).
             </p>
         </section>
 

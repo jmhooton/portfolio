@@ -27,25 +27,25 @@
             <h2>Overview</h2>
             <p>
                 This project documents a few common Windows troubleshooting scenarios one may encounter, all done in a Windows 11
-                virtual machine. I purposefully created problems involving DNS, NTFS permissions and the Spooler Windows service. I then
-                worked through how I'd approach each problem if I were to encounter them, using PowerShell and builtin Windows Tools. This
-                was all done in a VMware virtual machine as to experiment and break things without affecting my main Windows installation.
+                virtual machine. I created scenarios involving DNS, NTFS permissions and the Spooler Windows service. I then
+                worked through how I'd approach each problem if I were to encounter them using PowerShell and built-in Windows Tools. This
+                was all done in a VMware virtual machine as to allow experimentation and breaking without affecting my main Windows installation.
             </p>
         </section>
 
         <section id="dns">
             <h2>DNS Resolution</h2>
 
-            <h3>Problem</h3>
+            <h3>Problem #1</h3>
             <p>
-                I deliberately changed the Windows network adapter to use an invalid DNS server. After I changed the configuration, Windows
-                could still connect with external IP addresses, though domain names no longer could be resolved.
+                I deliberately changed the Windows network adapter to use an invalid DNS server. After changing the configuration, Windows
+                could still connect with external IP addresses, though domain names now no longer could be resolved.
             </p>
             <p>I first confirmed that general connectivity was working with:</p>
 
             <pre>Test-Connection 1.1.1.1 -Count 1</pre>
 
-            <p>However:</p>
+            <p>However non-surprisingly, DNS could not resolve:</p>
 
             <pre>Resolve-DnsName github.com</pre>
 
@@ -53,15 +53,15 @@
 
             <h3>Investigation</h3>
             <p>
-                Because communication with 1.1.1.1 was successful, I knew the general internet connectivity itself was still ok. This implicated the fault was
-                specifically related to DNS rather than the more general internet connectivity.
+                Because communication with 1.1.1.1 was successful, I knew general internet connectivity was still ok and functioning. This implicated that the fault was
+                most likely related to DNS rather than more general connectivity.
             </p>
-            <p>Therefore I checked the configured DNS servers with:</p>
+            <p>So I checked the configured DNS servers with:</p>
 
             <pre>Get-DnsClientServerAddress</pre>
 
             <p>
-                I found out the current adapter was configured to use 192.0.2.1, which was the incorrect DNS server address I had inputted.
+                I found that the current adapter was configured to use 192.0.2.1, which was the same incorrect DNS server address I had inputted.
             </p>
 
             <img src="../images/wrongdnsconfig.png">
@@ -70,17 +70,17 @@
             <p>
                 The problem was caused by a manually configured incorrect DNS server on the network adapter.
             </p>
-            <p>I fixed and restored the DNS configuration with:</p>
+            <p>I fixed and restored the my DNS configuration with:</p>
 
             <pre>Set-DnsClientServerAddress -InterfaceAlias "Ethernet0" -ResetServerAddresses</pre>
 
             <h3>Verifying</h3>
-            <p>After running the fix I checked to see DNS was indeed working now:</p>
+            <p>After running the fix I checked to see if DNS was indeed working now:</p>
 
             <pre>Resolve-DnsName github.com</pre>
 
             <p>
-                Once again, the DNS look up was successful and returned me a IP address from github.com, thus verifying DNS resolution has
+                And once again, the DNS look up was successful and returned me an IP address from github.com, therefore verifying that DNS resolution has now
                 been restored.
             </p>
 
@@ -90,50 +90,50 @@
         <section id="ntfs">
             <h2>NTFS Permissions</h2>
 
-            <h3>Problem</h3>
+            <h3>Problem #2</h3>
             <p>
-                For this second scenario, I created a test directory and test file and configured an NTFS permission to prevent a test user
-                from reading or executing the directory and files contents.
+                For this second scenario, I created a TestDirectory and file and configured an NTFS permission to prevent the TestUser
+                from reading and/or executing the TestDirectory or any one of its file/s.
             </p>
-            <p>When logged in as the TestUser, my attempt to read the file with:</p>
+            <p>When I was logged in as the TestUser, I attempted to read the test file with:</p>
 
             <pre>Get-Content C:\TestDirectory\Test.txt</pre>
 
-            <p>resulted in me getting a access denied error message.</p>
+            <p>But this resulted in me getting a access denied error message:</p>
 
             <img src="../images/testuserpermsdenied.png">
 
             <h3>Investigation</h3>
             <p>
-                The file seem to exist in the expected location, thus I investigated the directories NTFS access control list with icacls:
+                The file would seem to exist in the expected location, so I investigated the directories NTFS access control list with icacls:
             </p>
 
             <pre>icacls C:\TestDirectory</pre>
 
             <p>
-                The output showed me an explicit deny for TestUser. Therefore explaining why I couldn't read this specific file with Get-Content.
+                The output showed me an explicit deny for my TestUser. Therefore explaining why I couldn't just read this specific file with Get-Content:
             </p>
 
             <img src="../images/perms.png">
 
             <h3>Cause/Fix</h3>
             <p>
-                The problem was caused from a explicit deny ACE applied to my TestUser. I removed the deny entry via:
+                The problem was caused from a explicit deny ACE applied to my TestUser. I then removed the deny entry via:
             </p>
 
             <pre>icacls C:\TestDirectory /remove:d TestUser</pre>
 
             <p>
-                Here the deny entry has been stripped from TestUser without touching any of the other permissions for this directory.
+                Here the deny entry has been stripped from the TestUser all without touching any of the other permissions for this directory.
             </p>
 
             <h3>Verifying</h3>
-            <p>I logged back into TestUser and repeated the Get-Content command from earlier:</p>
+            <p>After removing the deny entry, I logged back into TestUser and repeated the Get-Content command from earlier:</p>
 
             <pre>Get-Content C:\TestDirectory\Test.txt</pre>
 
             <p>
-                The contents of the file displayed to the terminal correctly, and confirming that TestUser has had their permissions restored.
+                Now the contents of the file are being displayed to the terminal correctly, and confirming that my TestUser now has their permissions for this directory restored.
             </p>
 
             <img src="../images/getcontentsuccess.png">
@@ -142,7 +142,7 @@
         <section id="spooler">
             <h2>Print Spooler</h2>
 
-            <h3>Problem</h3>
+            <h3>Problem #3</h3>
             <p>
                 For this third case I simulated a printing related issue by stopping the Windows Print Spooler service.
             </p>
@@ -151,52 +151,51 @@
             <pre>Stop-Service Spooler</pre>
 
             <h3>Investigation</h3>
-            <p>I checked Print-Spoolers service status with:</p>
+            <p>I first checked Print-Spoolers service status with:</p>
 
             <pre>Get-Service Spooler</pre>
 
-            <p>The output reported that the service currently had the Stopped status.</p>
+            <p>The output showed me that the Spooler currently had the Stopped status.</p>
 
-            <p>Additionally I also checked it's startup config:</p>
+            <p>Additionally to rule out any weird startup settings, I checked it's startup config:</p>
 
             <pre>Get-Service Spooler | Select-Object StartType</pre>
+            
+            <img src="../images/startuptype.png">
 
             <p>
-                This confirmed whether or not Spooler might have been stopped from it's startup configuration aka whether it was automatic at boot and
-                whether something happened after boot and now that changed that. Since if it was manual at boot, that would have given me
-                a good reason why Spooler may currently be stopped.
+                This confirmed whether Spooler may have had just been stopped from it's startup configuration. And since it reported "automatic"
+                I know something must have happened during boot and now that stopped it (me).
             </p>
 
-            <img src="../images/spoolerstopped.png">
-
             <h3>Cause/Fix</h3>
-            <p>The printing issue was caused by the Spooler service not running.</p>
-            <p>I restarted Spooler using:</p>
+            <p>The printing problem was caused by the Spooler service not running. So naturally I started the Spooler service again:</p>
 
             <pre>Start-Service Spooler</pre>
 
             <h3>Verifying</h3>
-            <p>Once again I checked Spooler with Get-Service:</p>
+            <p>Once I had run Start-Service, I checked if Spooler was actually running with Get-Service:</p>
 
             <pre>Get-Service Spooler</pre>
 
+            <img src="../images/spoolerrunning.png">
+
             <p>
-                And the Spooler service's status has been returned to Running, verifying the service has been restored.
+                Great news for this weeks printing problem! the Spooler service's status has now been returned to Running; allowing us a sign of relief that printing (and the service) has been restored.
             </p>
 
-            <img src="../images/spoolerrunning.png">
         </section>
 
         <section id="powershell">
             <h2>PowerShell Diagnostic Script</h2>
 
-            <h3>Purpose</h3>
+            <h3>The Purpose</h3>
             <p>
-                Along with the troubleshooting scenarios, I created a PowerShell script for basic network config and connectivity verification.
+                Along with these troubleshooting scenarios, I created a PowerShell script for some basic network diagnostics and connectivity verification.
             </p>
             <p>
-                The script is used to identify the current network interface, display useful configuration information such as the IPv4 address,
-                default gateway, DNS Server and IP prefix. And run a few connectivity tests to check everything is working ok.
+                The script is for identifying the current network interface, displaying useful configuration information, such as the IPv4 address, the
+                default gateway, where the DNS Server located, what your IP prefix is, and additionally run a few connectivity tests to check everything is working alright.
             </p>
 
             <pre><code>$network = Get-NetIPConfiguration | Where-Object { $_.IPv4DefaultGateway }
@@ -235,23 +234,23 @@ else {
     Write-Host &quot;DNS:       Failed&quot;
 }</code></pre>
 
-            <h3>How does it work?</h3>
+            <h3>So how does it work?</h3>
             <p>
-                The script uses Get-NetIPConfiguration to retrieve network info and filters it for an interface that also has a default
+                The script uses Get-NetIPConfiguration to retrieve network info, it then filters that for an interface which also has a default
                 gateway; this avoids selecting otherwise disconnected or currently unused adapters.
             </p>
             <p>
-                It then performs multiple checks with if else conditional logic testing different connections. The first test with "Gateway"
-                is for whether I can reach the default gateway, the second with "Internet" is whether I can connect to an external IP without
-                using the DNS server, the third test "DNS" tests whether I can get name resolution, and the fourth
-                and final test tests whether I can connect to a HTTPS port over TCP.
+                After this it performs multiple checks with if-else conditional-logic testing a few different connections. The first test with the output "Gateway"
+                is for whether I can reach the my current default gateway, the second with "Internet" is for whether I can connect to an external IP without
+                using a DNS server; the third test "DNS", tests whether I can get name resolution; and the fourth
+                and final test tests whether I can connect to an HTTPS port over TCP.
             </p>
             <p>
-                So if one of these tests fail, it helps me narrow down which part of connectivity might be causing the problem.
+                If one of these tests fail, it helps me narrow down which part of connectivity might be causing the issue.
             </p>
 
             <h3>Script Output</h3>
-            <p>Here I ran the script in PowerShell to test the connectivity health of my machine:</p>
+            <p>Here I ran the script in PowerShell to test the network health of my machine:</p>
 
             <img src="../images/script.png">
         </section>
@@ -259,15 +258,14 @@ else {
         <section id="learned">
             <h2>What I Learned</h2>
             <p>
-                This project and just my general Windows study, gave me practical experience troubleshooting and diagnosing serveral different
+                This project and just my general Windows study and use, gave me practical experience troubleshooting and diagnosing serveral different
                 types of Windows related problems rather than only knowing and applying predefined solutions. Here I demonstrated the ability
-                to isolate DNS from general connectivity, how to check NTFS permissions and to grant and revoke them, and how to manage
+                to isolate DNS from general connectivity, how to check NTFS permissions and how to grant and revoke them, and the skills to manage
                 Windows services if for some reason Spooler (among other services) is broken again.
             </p>
             <p>
-                I also learnt a lot of PowerShell and how it works as it passes Objects rather than text like Bash or other shells; which was
-                a lot of fun and extremely interesting. Overall I feel like I have improved my understanding of Windows and troubleshooting from
-                my learning.
+                I also learnt a bit of PowerShell and learnt about how it works, like for example: that it passes Objects/Structured Data mainly rather than just text streams like Bash or other common shells,
+                which learning about was actually a lot of fun and very interesting. Overall I feel like I have improved my understanding of Windows and general troubleshooting from my learning here and in general.
             </p>
         </section>
     </main>
