@@ -24,14 +24,17 @@
         <section id="overview">
             <h2>Overview</h2>
             <p>
-                This project explores how network traffic travels from an application on a Windows 11 virtual machine, to the
-                open internet. I will use VMware tools and builtin Windows tools for networking to investigate how IP, DNS, gateways, subnets,
-                ARP, routing and NAT all work together. And rather than explaining each concept seperately I will follow the path network
-                traffic takes from my virtual machine, through VMware's virtual network, to my home network, and finally the internet.
+                This project explores how general network traffic travels from an application, all the way to the
+                open internet. I will also be using a Windows 11 virtual machine to demonstrate all this.
+            </p>   
+            <p>
+                In this project, I used VMware tools and built-in Windows tools for networking and investigation to how IP, DNS, gateways, subnets,
+                ARP, routing and NAT all work together. And rather than explaining each concept seperately I will follow the direct path network
+                traffic takes from my virtual machine, through VMware's virtual network, to my home network, and finally, the internet.
             </p>
         </section>
 
-        <section id="application-gateway">
+        <section id="applicationgateway">
             <h2>From Application to Gateway</h2>
 
             <p>
@@ -40,7 +43,7 @@
             </p>
 
             <p>
-                First we have DNS resolve the domain name into an actual IP address, the application then communicates with a service on the
+                First we have DNS, which will resolve the domain name into an actual IP address, which then allows the application to communicate with a service on the
                 machine using a port number; for example TCP port 443, which is commonly used by HTTPS.
             </p>
 
@@ -64,13 +67,18 @@ Gateway: 192.168.29.2
 DNS:     192.168.29.2</pre>
 
             <p>
-                The /24 prefix is what defines the local subnet and its size. Because internet destinations are outside this subnet,
-                traffic that doesn't have a more specific route will be sent to my default gateway at 192.168.29.2.
-                It's also worth noting, most of this configuration was supplied through DHCP rather than manually configured.
+                The /24 (alternatively written: 255.255.255.0) prefix is what defines the local subnet and its size. Because internet destinations are outside this subnet,
+                traffic that doesn't have a more specified route will be sent to my default gateway at 192.168.29.2.
+            </p>
+            <p>
+                 It's also worth noting, most of this configuration was supplied through DHCP rather than being manually configured.
             </p>
 
             <p>
-                Now before Windows can send traffic to the default gateway over the local network, it first needs the gateway's MAC address.
+                Now even before Windows can send traffic to the default gateway over the local network, it first will need the gateway's MAC address. ARP is the technology that
+                will give you it.
+            </p>
+            <p>
                 I inspected the local ARP table using:
             </p>
 
@@ -79,30 +87,25 @@ DNS:     192.168.29.2</pre>
             <img src="../images/arp.png">
 
             <p>
-                ARP's purpose is to map local IPv4 addresses to MAC addresses, thus allowing Windows to determine the destination MAC address
-                to then place in the Ethernet frame.
+                ARP's purpose is to map local IPv4 addresses to MAC addresses, it is somewhat of a language translater. When your device has an IP address, like the default gateway's IP for example,
+                it needs to "ARP" for the gateway's MAC address so it can pinpoint exactly which device the IP address belongs to, without the MAC address, your device wouldn't really
+                know what to do with the IP; but with it, it can understand exactly who is who and where to go next on your local network.
             </p>
 
-            <p>Here's a little chart showing the whole process so far:</p>
-
-            <pre>github.com
-V
-DNS resolves IP
-V
-TCP connects to service/port
-V
-IP/subnet determines whether local or remote
-V
-Remote traffic uses default gateway
-V
-ARP finds gateway's MAC address</pre>
+            <p>
+                Here's the general process so far:
+            </p>
+            <p>
+                Try to connect to github.com → ARP for DNS server MAC address → connect to DNS server → DNS server resolves domain name and provides the associated IP address → Windows sees that the IP address
+                lies outside your local subnet → ARP for default gateway's MAC address → Connect to default gateway.
+            </p>
 
             <p>
-                Obviously for the sake of simplicity, there are a few more steps involved than this, but it's the basic picture.
+                Obviously for the sake of simplicity and brevity, there are a few more steps involved than this, but it's the basic picture.
             </p>
         </section>
 
-        <section id="gateway-internet">
+        <section id="gatewayinternet">
             <h2>From Gateway to Internet</h2>
 
             <p>
@@ -116,7 +119,7 @@ ARP finds gateway's MAC address</pre>
             <img src="../images/getnetroute.png">
 
             <p>
-                0.0.0.0/0 is the route used when Windows doesn't have a more specific route for the destination. For this case,
+                0.0.0.0/0 is the route used when Windows doesn't have a more specific route for the destination. For my case,
                 this route causes the traffic to be sent to the default gateway.
             </p>
 
@@ -154,9 +157,9 @@ ARP finds gateway's MAC address</pre>
             </p>
 
             <p>
-                Following the process hands-on in my Windows virtual machine using PowerShell and other networking utilities,
+                Following the process in my Windows virtual machine, using PowerShell and other networking utilities,
                 while also examining my virtual machine's virtual network and NAT, made all these networking connections and networking
-                concepts much clearer.
+                concepts much clearer to me.
             </p>
         </section>
     </main>
