@@ -99,13 +99,13 @@
 
             <pre><code>Get-Content C:\TestDirectory\Test.txt</code></pre>
 
-            <p>But this resulted in me getting a access denied error message:</p>
+            <p>But this resulted in me getting an access denied error message:</p>
 
             <img src="../images/testuserpermsdenied.png">
 
             <h3>Investigation</h3>
             <p>
-                The file would seem to exist in the expected location, so I investigated the directories NTFS access control list with icacls:
+                The file seems to exist in the expected location, so I investigated the directories NTFS access control list with icacls:
             </p>
 
             <pre><code>icacls C:\TestDirectory</code></pre>
@@ -151,7 +151,7 @@
             <pre><code>Stop-Service Spooler</code></pre>
 
             <h3>Investigation</h3>
-            <p>I first checked Print-Spoolers service status with:</p>
+            <p>I first checked Spooler's service status with:</p>
 
             <pre><code>Get-Service Spooler</code></pre>
 
@@ -167,7 +167,7 @@
 
             <p>
                 This confirms whether Spooler may have had just been stopped from it's startup configuration. And since it reported "automatic"
-                I know its stoppped state must have occurred during or after its startup for it to be this way.
+                I know its stopped state must have occurred during or after its startup for it to be this way.
             </p>
 
             <h3>Cause/Fix</h3>
