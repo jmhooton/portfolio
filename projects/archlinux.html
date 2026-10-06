@@ -14,7 +14,7 @@
             <a href="#mysystem">My System</a>
             <a href="#commandline">Command Line</a>
             <a href="#configuration">Configuration</a>
-            <a href="#learned">What I Learned</a>
+            <a href="#takeaways">What I Learned</a>
         </nav>
     </div>
 
@@ -120,14 +120,14 @@
             </p>
 
             <h3>Files and Navigation</h3>
-            <pre>pwd
+            <pre><code>pwd
 ls
 cd ~/Files
 mkdir Directory
 touch newfile.txt
 cp file.txt Directory/
 mv file.txt Directory/
-mv oldname.txt newname.txt</pre>
+mv oldname.txt newname.txt</code></pre>
 
             <p>
                 pwd prints a full path of the current working directory, ls lists files and directories, cd changes the current working
@@ -139,8 +139,8 @@ mv oldname.txt newname.txt</pre>
             </p>
 
             <h3>Text Search And File Search</h3>
-            <pre>grep "error" log.txt
-find ~/Directory -name "*.txt"</pre>
+            <pre><code>grep "error" log.txt
+find ~/Directory -name "*.txt"</code></pre>
 
             <p>
                 Use grep to search input for lines matching a pattern, be it from a file, or from a pipeline. It's very common to use grep
@@ -154,9 +154,9 @@ find ~/Directory -name "*.txt"</pre>
             </p>
 
             <h3>Pacman, the AUR, and Package Management</h3>
-            <pre>sudo pacman -Syu
+            <pre><code>sudo pacman -Syu
 pacman -Ss firefox
-pacman -Qi firefox</pre>
+pacman -Qi firefox</code></pre>
 
             <p>
                 Pacman is the Arch Linux package manager, and one of the biggest reasons people use Arch Linux over other distributions.
@@ -170,8 +170,8 @@ pacman -Qi firefox</pre>
             </p>
 
             <h3>Services and Logs</h3>
-            <pre>systemctl status NetworkManager
-journalctl -u NetworkManager -b</pre>
+            <pre><code>systemctl status NetworkManager
+journalctl -u NetworkManager -b</code></pre>
 
             <p>
                 I use systemctl to manage and investigate systemd services. For example I can check whether NetworkManager is currently
@@ -180,9 +180,9 @@ journalctl -u NetworkManager -b</pre>
             </p>
 
             <h3>Networking</h3>
-            <pre>ip addr
+            <pre><code>ip addr
 ip route
-ping 1.1.1.1</pre>
+ping 1.1.1.1</code></pre>
 
             <p>
                 ip addr shows you network interfaces and addresses, ip route shows the routing table and ping sends ICMP echo requests to an IP.
@@ -190,10 +190,10 @@ ping 1.1.1.1</pre>
             </p>
 
             <h3>Filesystems and Storage</h3>
-            <pre>lsblk -f
+            <pre><code>lsblk -f
 mount
 findmnt
-df -h</pre>
+df -h</code></pre>
 
             <p>
                 Plain lsblk lists hard drives, SSDs, USBs, and supplies the size of them, while the optional -f flag can show additional filesystem info.
@@ -225,8 +225,8 @@ df -h</pre>
             </p>
         </section>
 
-        <section id="learned">
-            <h2>What I Learned</h2>
+        <section id="takeaways">
+            <h2>Takeaways</h2>
             <p>
                 During my time using Arch Linux and just Linux in general, I learned and gained practical experience with:
             </p>

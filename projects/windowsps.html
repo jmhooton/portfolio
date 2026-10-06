@@ -15,7 +15,7 @@
             <a href="#ntfs">NTFS Permissions</a>
             <a href="#spooler">Print Spooler</a>
             <a href="#powershell">PowerShell Script</a>
-            <a href="#learned">What I Learned</a>
+            <a href="#takeaways">What I Learned</a>
         </nav>
     </div>
 
@@ -43,11 +43,11 @@
             </p>
             <p>I first confirmed that general connectivity was working with:</p>
 
-            <pre>Test-Connection 1.1.1.1 -Count 1</pre>
+            <pre><code>Test-Connection 1.1.1.1 -Count 1</code></pre>
 
             <p>However non-surprisingly, DNS could not resolve:</p>
 
-            <pre>Resolve-DnsName github.com</pre>
+            <pre><code>Resolve-DnsName github.com</code></pre>
 
             <img src="../images/1111thendns.png">
 
@@ -58,7 +58,7 @@
             </p>
             <p>So I checked the configured DNS servers with:</p>
 
-            <pre>Get-DnsClientServerAddress</pre>
+            <pre><code>Get-DnsClientServerAddress</code></pre>
 
             <p>
                 I found that the current adapter was configured to use 192.0.2.1, which was the same incorrect DNS server address I had inputted.
@@ -72,12 +72,12 @@
             </p>
             <p>I fixed and restored the my DNS configuration with:</p>
 
-            <pre>Set-DnsClientServerAddress -InterfaceAlias "Ethernet0" -ResetServerAddresses</pre>
+            <pre><code>Set-DnsClientServerAddress -InterfaceAlias "Ethernet0" -ResetServerAddresses</code></pre>
 
             <h3>Verifying</h3>
             <p>After running the fix I checked to see if DNS was indeed working now:</p>
 
-            <pre>Resolve-DnsName github.com</pre>
+            <pre><code>Resolve-DnsName github.com</code></pre>
 
             <p>
                 And once again, the DNS look up was successful and returned me an IP address from github.com, therefore verifying that DNS resolution has now
@@ -97,7 +97,7 @@
             </p>
             <p>When I was logged in as the TestUser, I attempted to read the test file with:</p>
 
-            <pre>Get-Content C:\TestDirectory\Test.txt</pre>
+            <pre><code>Get-Content C:\TestDirectory\Test.txt</code></pre>
 
             <p>But this resulted in me getting a access denied error message:</p>
 
@@ -108,7 +108,7 @@
                 The file would seem to exist in the expected location, so I investigated the directories NTFS access control list with icacls:
             </p>
 
-            <pre>icacls C:\TestDirectory</pre>
+            <pre><code>icacls C:\TestDirectory</code></pre>
 
             <p>
                 The output showed me an explicit deny for my TestUser. Therefore explaining why I couldn't just read this specific file with Get-Content:
@@ -121,7 +121,7 @@
                 The problem was caused from a explicit deny ACE applied to my TestUser. I then removed the deny entry via:
             </p>
 
-            <pre>icacls C:\TestDirectory /remove:d TestUser</pre>
+            <pre><code>icacls C:\TestDirectory /remove:d TestUser</code></pre>
 
             <p>
                 Here the deny entry has been stripped from the TestUser all without touching any of the other permissions for this directory.
@@ -130,7 +130,7 @@
             <h3>Verifying</h3>
             <p>After removing the deny entry, I logged back into TestUser and repeated the Get-Content command from earlier:</p>
 
-            <pre>Get-Content C:\TestDirectory\Test.txt</pre>
+            <pre><code>Get-Content C:\TestDirectory\Test.txt</code></pre>
 
             <p>
                 Now the contents of the file are being displayed to the terminal correctly, and confirming that my TestUser now has their permissions for this directory restored.
@@ -148,12 +148,12 @@
             </p>
             <p>The service was stopped using:</p>
 
-            <pre>Stop-Service Spooler</pre>
+            <pre><code>Stop-Service Spooler</code></pre>
 
             <h3>Investigation</h3>
             <p>I first checked Print-Spoolers service status with:</p>
 
-            <pre>Get-Service Spooler</pre>
+            <pre><code>Get-Service Spooler</code></pre>
 
             <img src="../images/spoolerstopped.png">
 
@@ -161,7 +161,7 @@
 
             <p>Additionally to rule out any weird startup settings, I checked it's startup config:</p>
 
-            <pre>Get-Service Spooler | Select-Object StartType</pre>
+            <pre><code>Get-Service Spooler | Select-Object StartType</code></pre>
             
             <img src="../images/startuptype.png">
 
@@ -173,12 +173,12 @@
             <h3>Cause/Fix</h3>
             <p>The printing problem was caused by the Spooler service just not running. So naturally I started the Spooler service again:</p>
 
-            <pre>Start-Service Spooler</pre>
+            <pre><code>Start-Service Spooler</code></pre>
 
             <h3>Verifying</h3>
             <p>Once I had run Start-Service, I checked if Spooler was actually running with Get-Service:</p>
 
-            <pre>Get-Service Spooler</pre>
+            <pre><code>Get-Service Spooler</code></pre>
 
             <img src="../images/spoolerrunning.png">
 
@@ -257,8 +257,8 @@ else {
             <img src="../images/script.png">
         </section>
 
-        <section id="learned">
-            <h2>What I Learned</h2>
+        <section id="takeaways">
+            <h2>Takeaways</h2>
             <p>
                 This project and just my general Windows study and use, gave me practical experience troubleshooting and diagnosing several different
                 types of Windows related problems rather than only knowing and applying predefined solutions. Here I demonstrated the ability

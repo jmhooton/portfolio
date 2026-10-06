@@ -15,7 +15,7 @@
             <a href="#methods">Methods and Borrowing</a>
             <a href="#collection">A Collection of Tickets</a>
             <a href="#together">Putting Everything Together</a>
-            <a href="#learned">What I Learned</a>
+            <a href="#takeaways">Takeaways</a>
         </nav>
     </div>
 
@@ -37,11 +37,11 @@
 
             <p>Each ticket is represented using a <code>struct</code>:</p>
 
-            <pre>struct Ticket {
+            <pre><code>struct Ticket {
     number: u32,
     description: String,
     is_fixed: bool,
-}           </pre>
+}           </code></pre>
 
             <p>
                 A struct's purpose is to group related data into a single type. In this example, every ticket here contains an ID number, a description,
@@ -51,7 +51,7 @@
 
             <p>Now to make creating tickets simpler and more consistent, I added an associated <code>::new()</code> function for our newly created type:</p>
 
-            <pre>impl Ticket {
+            <pre><code>impl Ticket {
     fn new(number: u32, description: String) -&gt; Ticket {
         Ticket {
             number,
@@ -59,7 +59,7 @@
             is_fixed: false,
         }
     }
-}           </pre>
+}           </code></pre>
 
             <p>
                 Therefore allowing me to create a <code>Ticket</code> with <code>Ticket::new()</code>, this also ensures that every newly created <code>Ticket</code> begins with
@@ -72,7 +72,7 @@
 
             <p>Here I added some methods inside <code>impl</code> to "fix" and print each ticket's values:</p>
 
-            <pre>fn fix(&amp;mut self) {
+            <pre><code>fn fix(&amp;mut self) {
     self.is_fixed = true;
 }
 
@@ -83,7 +83,7 @@ fn print(&amp;self) {
         self.description,
         self.is_fixed
     );
-}           </pre>
+}           </code></pre>
 
             <p>
                 The two methods here will also demonstrate the difference between immutable and mutable borrowing in Rust. <code>print()</code> uses <code>&amp;self</code>
@@ -99,7 +99,7 @@ fn print(&amp;self) {
 
             <p>Here I store the tickets in a vector:</p>
 
-            <pre>let mut tickets: Vec&lt;Ticket&gt; = Vec::new();</pre>
+            <pre><code>let mut tickets: Vec&lt;Ticket&gt; = Vec::new();</code></pre>
 
             <p>
                 <code>Vec&lt;Ticket&gt;</code> is a growable collection that contains <code>Ticket</code> values. The vector itself is also mutable, as we will be pushing new tickets to
@@ -111,11 +111,11 @@ fn print(&amp;self) {
                 its contents:
             </p>
 
-            <pre>fn print_tickets(tickets: &amp;[Ticket]) {
+            <pre><code>fn print_tickets(tickets: &amp;[Ticket]) {
     for ticket in tickets {
         ticket.print();
     }
-}           </pre>
+}           </code></pre>
 
             <p>
                 This function only needs to read the tickets, therefore only requiring an immutably borrowed slice rather than a mutable one.
@@ -123,7 +123,7 @@ fn print(&amp;self) {
 
             <p>And contrasting the immutably borrowed slice, is this mutably borrowed one:</p>
 
-            <pre>fn fix_ticket(tickets: &amp;mut [Ticket], number: u32) {
+            <pre><code>fn fix_ticket(tickets: &amp;mut [Ticket], number: u32) {
     for ticket in tickets {
         if ticket.number == number {
             ticket.fix();
@@ -132,7 +132,7 @@ fn print(&amp;self) {
     }
 
     println!("Can't find ticket!");
-}           </pre>
+}           </code></pre>
 
             <p>
                 This function will check each ticket until it finds the matching number. Once the number has been found, it will call the fix method
@@ -146,7 +146,7 @@ fn print(&amp;self) {
 
             <p>An empty vector is created using <code>Vec::new()</code> and tickets will be one-by-one pushed into it:</p>
 
-            <pre>let mut tickets: Vec&lt;Ticket&gt; = Vec::new();
+            <pre><code>let mut tickets: Vec&lt;Ticket&gt; = Vec::new();
 
 tickets.push(Ticket::new(
     1,
@@ -159,17 +159,17 @@ tickets.push(Ticket::new(
 tickets.push(Ticket::new(
     3,
     String::from("daves doing it again..."),
-));         </pre>
+));         </code></pre>
 
             <p>Then the same created collection, can be borrowed differently depending on what the program will require:</p>
 
-            <pre>println!("Tickets before:");
+            <pre><code>println!("Tickets before:");
 print_tickets(&amp;tickets);
 
 fix_ticket(&amp;mut tickets, 2);
 
 println!("Tickets after:");
-print_tickets(&amp;tickets);</pre>
+print_tickets(&amp;tickets);</code></pre>
 
             <p>
                 Here, <code>print_tickets(&amp;tickets)</code> only needs to borrow the collection for reading, whereas <code>fix_ticket(&amp;mut tickets, 2)</code> receives
@@ -178,18 +178,18 @@ print_tickets(&amp;tickets);</pre>
 
             <p>Running the program shows the second ticket's state change:</p>
 
-            <pre>Tickets before:
+            <pre><code>Tickets before:
 #1 | wifi isnt working!! | Fixed?: false
 #2 | browser wont open | Fixed?: false
 #3 | daves doing it again... | Fixed?: false
 Tickets after:
 #1 | wifi isnt working!! | Fixed?: false
 #2 | browser wont open | Fixed?: true
-#3 | daves doing it again... | Fixed?: false</pre>
+#3 | daves doing it again... | Fixed?: fals</code></pre>
         </section>
 
-        <section id="learned">
-            <h2>What I Learned</h2>
+        <section id="takeaways">
+            <h2>Takeaways</h2>
 
             <p>
                 This project and my recent general study solidified a lot of programming concepts I had floating around in my head for years,

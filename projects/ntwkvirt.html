@@ -13,7 +13,7 @@
             <a href="#overview">Overview</a>
             <a href="#applicationgateway">Application to Gateway</a>
             <a href="#gatewayinternet">Gateway to Internet</a>
-            <a href="#learned">What I Learned</a>
+            <a href="#takeaways">What I Learned</a>
         </nav>
     </div>
 
@@ -55,16 +55,16 @@
 
             <p>I inspected my virtual machine's network config using:</p>
 
-            <pre>ipconfig</pre>
+            <pre><code>ipconfig</code></pre>
 
             <img src="../images/ipconfig.png">
 
             <p>With this information I found out my virtual machine was configured with a private IPv4 address on VMware's virtual network:</p>
 
-                        <pre>IPv4:    192.168.29.128
+                        <pre><code>IPv4:    192.168.29.128
 Prefix:  /24 (from subnet mask)
 Gateway: 192.168.29.2
-DNS:     192.168.29.2</pre>
+DNS:     192.168.29.2</code></pre>
 
             <p>
                 The /24 (alternatively written: 255.255.255.0) prefix, plus the IP, is what defines the local subnet and its size. Because internet destinations are outside this subnet,
@@ -82,7 +82,7 @@ DNS:     192.168.29.2</pre>
                 I inspected the local ARP table using:
             </p>
 
-            <pre>arp -a</pre>
+            <pre><code>arp -a</code></pre>
 
             <img src="../images/arp.png">
 
@@ -114,7 +114,7 @@ DNS:     192.168.29.2</pre>
 
             <p>I found my virtual machine's default route via:</p>
 
-            <pre>Get-NetRoute -DestinationPrefix "0.0.0.0/0"</pre>
+            <pre><code>Get-NetRoute -DestinationPrefix "0.0.0.0/0"</code></pre>
 
             <img src="../images/getnetroute.png">
 
@@ -125,7 +125,7 @@ DNS:     192.168.29.2</pre>
 
             <p>After finding my default route, I used:</p>
 
-            <pre>tracert github.com</pre>
+            <pre><code>tracert github.com</code></pre>
 
             <p>to see the route my traffic took beyond my virtual machine.</p>
 
@@ -147,8 +147,8 @@ DNS:     192.168.29.2</pre>
             <img src="../images/vmware.png">
         </section>
 
-        <section id="learned">
-            <h2>What I Learned</h2>
+        <section id="takeaways">
+            <h2>Takeaways</h2>
 
             <p>
                 This project helped me solidify networking concepts I had previously been aware of more separately into one complete process.
