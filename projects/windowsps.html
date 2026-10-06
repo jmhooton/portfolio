@@ -92,10 +92,10 @@
 
             <h3>Problem #2</h3>
             <p>
-                For this second scenario, I created a TestDirectory and file and configured an NTFS permission to prevent the TestUser
-                from reading and/or executing the TestDirectory or any one of its file/s.
+                For this second scenario, I created a test-directory and file and configured an NTFS permission to prevent the test-user
+                from reading and/or executing the test-directory or any one of its file/s.
             </p>
-            <p>When I was logged in as the TestUser, I attempted to read the test file with:</p>
+            <p>When I was logged in as the test-user, I attempted to read the test file with:</p>
 
             <pre><code>Get-Content C:\TestDirectory\Test.txt</code></pre>
 
@@ -105,13 +105,13 @@
 
             <h3>Investigation</h3>
             <p>
-                The file seems to exist in the expected location, so I investigated the directories NTFS access control list with icacls:
+                The file seems to exist in the expected location, so I investigated the directories NTFS access control list with <code>icacls</code>:
             </p>
 
             <pre><code>icacls C:\TestDirectory</code></pre>
 
             <p>
-                The output showed me an explicit deny for my TestUser. Therefore explaining why I couldn't just read this specific file with Get-Content:
+                The output showed me an explicit deny for my test-user. Therefore explaining why I couldn't just read this specific file with <code>Get-Content</code>:
             </p>
 
             <img src="../images/perms.png">
@@ -183,7 +183,7 @@
             <img src="../images/spoolerrunning.png">
 
             <p>
-                Great news for this weeks printing problem! the Spooler service's status has now been returned to Running; allowing us a sign of relief that printing (and the service) has been restored.
+                Good news for this weeks printing issue: the Spooler service's status has now been returned to Running; demonstrating that the service has been restored.
             </p>
 
         </section>
@@ -238,7 +238,7 @@ else {
 
             <h3>So how does it work?</h3>
             <p>
-                The script uses Get-NetIPConfiguration to retrieve network info, it then filters that for an interface which also has a default
+                The script uses <code>Get-NetIPConfiguration</code> to retrieve network info, it then filters that for an interface which also has a default
                 gateway; this avoids selecting otherwise disconnected or currently unused adapters.
             </p>
             <p>

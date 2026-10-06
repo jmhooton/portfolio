@@ -63,8 +63,8 @@
 
             <h3>systemd</h3>
             <p>
-                Arch Linux comes with systemd as its service management and init system. I use commands like systemctl for managing
-                services and other useful commands like journalctl to inspect system log files when things break.
+                Arch Linux comes with systemd as its service management and init system. I use commands like <code>systemctl</code> for managing
+                services and other useful commands like <code>journalctl</code> to inspect system log files when things break.
             </p>
 
             <h3>Wayland and Sway</h3>
@@ -112,7 +112,7 @@
 
             <p>             
                 It's very common to use it for very basic operations, like opening files, removing them, searching them, basic navigation, checking services, checking permissions, updating your system,
-                turning off your system and so much more. There are some graphical tools for many of these operations, though it's still extremely useful to know how to use the terminal anyways, and a lot of the times it's faster too.
+                turning off your system and much much more. There are some graphical tools for many of these operations, though it is still very useful to know how to use the terminal regardless; and a lot of the time, it's faster too.
             </p>
 
             <p>   
@@ -130,9 +130,9 @@ mv file.txt Directory/
 mv oldname.txt newname.txt</code></pre>
 
             <p>
-                pwd prints a full path of the current working directory, ls lists files and directories, cd changes the current working
-                directory. mkdir and touch create new directories and empty files respectively (touch updates instead if the file exists). To copy, "cut" and rename files, there exists
-                cp and mv, cp being short for copy, and mv being short for move.
+                <code>pwd</code> prints a full path of the current working directory, <code>ls</code> lists files and directories, <code>cd</code> changes the current working
+                directory. <code>mkdir</code> and <code>touch</code> create new directories and empty files respectively (<code>touch</code> will update instead if the file already exists). To copy, "cut" and rename files, there exists
+                <code>cp</code> and <code>mv</code>; <code>cp</code> being short for copy, and <code>mv</code> being short for move.
             </p>
             <p>
                 Some common PowerShell equivalents here, would be Get-Location, Set-Location, New-Item, Copy-Item, Move-Item.
@@ -143,14 +143,14 @@ mv oldname.txt newname.txt</code></pre>
 find ~/Directory -name "*.txt"</code></pre>
 
             <p>
-                Use grep to search input for lines matching a pattern, be it from a file, or from a pipeline. It's very common to use grep
-                when searching for particular lines in config files, logs and just general command output. The find command acts on directories,
+                Use <code>grep</code> to search input for lines matching a pattern, be it from a file, or from a pipeline. It's very common to use <code>grep</code>
+                when searching for particular lines in config files, logs and just general command output. The <code>find</code> command acts on directories,
                 searches through them and finds the selected files.
             </p>
 
             <p>
-                grep is very useful for finding logs, errors, and finding specific text on your system. And find is (along with searching for log and error files aswell)
-                is very useful when you can't remember where you placed that specifc config file.
+                <code>grep</code> is very useful for finding logs, errors, and finding specific text on your system. And find (along with searching for log and error files)
+                is very useful when you can't remember where you placed a specifc config file.
             </p>
 
             <h3>Pacman, the AUR, and Package Management</h3>
@@ -174,9 +174,9 @@ pacman -Qi firefox</code></pre>
 journalctl -u NetworkManager -b</code></pre>
 
             <p>
-                I use systemctl to manage and investigate systemd services. For example I can check whether NetworkManager is currently
+                I use <code>systemctl</code> to manage and investigate systemd services. For example I can check whether NetworkManager is currently
                 running, start it, restart it, stop it and configure whether it starts automatically at boot;
-                and when troubleshooting, journalctl provides the logs necessary to find out what's gone wrong.
+                and when troubleshooting, <code>journalctl</code> provides the logs necessary to find out what's gone wrong.
             </p>
 
             <h3>Networking</h3>
@@ -185,7 +185,7 @@ ip route
 ping 1.1.1.1</code></pre>
 
             <p>
-                ip addr shows you network interfaces and addresses, ip route shows the routing table and ping sends ICMP echo requests to an IP.
+                <code>ip addr</code> shows you network interfaces and addresses, <code>ip route</code> shows the routing table and ping sends ICMP echo requests to an IP.
                 These are the standard commands used when checking network information and diagnosing what's working or failing.
             </p>
 
@@ -196,9 +196,9 @@ findmnt
 df -h</code></pre>
 
             <p>
-                Plain lsblk lists hard drives, SSDs, USBs, and supplies the size of them, while the optional -f flag can show additional filesystem info.
-                mount mounts filesystems to your system; commonly in the /mnt directory. findmnt finds and lists currently mounted
-                filesystems in your terminal. df -h lists how much disk space is free in a human readable format via the -h flag
+                Plain <code>lsblk</code> lists hard drives, SSDs, USBs, and supplies the size of them, while the optional <code>-f</code> flag can show additional filesystem info.
+                <code>mount</code> mounts filesystems to your system; commonly in the <code>/mnt</code> directory. <code>findmnt</code> finds and lists currently mounted
+                filesystems in your terminal. <code>df -h</code> lists how much disk space is free in a human readable format via the <code>-h</code> flag
                 (shows GB/MB rather than bytes).
             </p>
         </section>
@@ -221,7 +221,7 @@ df -h</code></pre>
 
             <p>
                 Additionally I added some keybinds to run small Bash programs to tell the time via mako, my notification daemon. I also have other small scripts for
-                taking and saving screenshots aswell via grim and slurp (yes those are those programs' actual names).
+                taking and saving screenshots aswell via grim and slurp (programs for selection and screen capture).
             </p>
         </section>
 
