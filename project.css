@@ -84,3 +84,12 @@ code {
     font-size: 1em;
     font-family: Consolas, "Courier New", monospace;
 }
+
+.link {
+    margin-top: 0px;
+    margin-left: 5px;
+}
+
+.link a {
+    color: inherit;
+}

@@ -77,8 +77,7 @@
 }
 
 fn print(&amp;self) {
-    println!(
-        "#{} | {} | Fixed?: {}",
+    println!("#{} | {} | Fixed?: {}",
         self.number,
         self.description,
         self.is_fixed
@@ -150,15 +149,15 @@ fn print(&amp;self) {
 
 tickets.push(Ticket::new(
     1,
-    String::from("wifi isnt working!!"),
+    String::from("wifi isnt working!!")
 ));
 tickets.push(Ticket::new(
     2,
-    String::from("browser wont open"),
+    String::from("browser wont open")
 ));
 tickets.push(Ticket::new(
     3,
-    String::from("daves doing it again..."),
+    String::from("the printers doing it again")
 ));         </code></pre>
 
             <p>Then the same created collection, can be borrowed differently depending on what the program will require:</p>
@@ -176,16 +175,21 @@ print_tickets(&amp;tickets);</code></pre>
                 a mutable borrow, thus allowing changes to the stored <code>Ticket</code>s inside <code>tickets</code>.
             </p>
 
-            <p>Running the program shows the second ticket's state change:</p>
+            <p>Finally, running the program shows the second ticket's state change:</p>
 
             <pre><code>Tickets before:
-#1 | wifi isnt working!! | Fixed?: false
-#2 | browser wont open | Fixed?: false
-#3 | daves doing it again... | Fixed?: false
+#1 | wifi isnt working!! | Fixed? false
+#2 | browser wont open | Fixed? false
+#3 | the printers doing it again | Fixed?: false
 Tickets after:
-#1 | wifi isnt working!! | Fixed?: false
-#2 | browser wont open | Fixed?: true
-#3 | daves doing it again... | Fixed?: fals</code></pre>
+#1 | wifi isnt working!! | Fixed? false
+#2 | browser wont open | Fixed? true
+#3 | the printers doing it again | Fixed? false</code></pre>
+        
+        <p class="link">
+            <a href="https://github.com/jmhooton/portfolio/tree/main/rustsource">Code</a>
+        </p>
+
         </section>
 
         <section id="takeaways">
