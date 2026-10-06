@@ -27,7 +27,7 @@
             <h2>Overview</h2>
             <p>
                 In this project I built a small ticket tracker in Rust to demonstrate and practise some fundamental programming concepts while also
-                putting my passive knowledge of programming languages, and Rust in particular, to use.
+                putting my passive knowledge of programming languages, Rust here in particular, to use.
                 This program will store a collection of tickets, display their state, and allow individual tickets to be marked as fixed.
             </p>
         </section>
@@ -44,12 +44,12 @@
 }           </code></pre>
 
             <p>
-                A struct's purpose is to group related data into a single type. In this example, every ticket here contains an ID number, a description,
-                and a boolean representing whether the ticket has been "fixed". The description value is stored as a <code>String</code>, allowing each
-                ticket ownership of its text.
+                Structs are used for grouping related data into a single type. In this example, every ticket here contains an ID number, a description,
+                and a boolean representing whether the ticket has been "fixed". The description value is stored as a <code>String</code>, this allows each
+                ticket to have ownership of their text.
             </p>
 
-            <p>Now to make creating tickets simpler and more consistent, I added an associated <code>::new()</code> function for our newly created type:</p>
+            <p>To make creating tickets simpler and more consistent, I added an associated <code>::new()</code> function for my newly created type:</p>
 
             <pre><code>impl Ticket {
     fn new(number: u32, description: String) -&gt; Ticket {
@@ -62,7 +62,7 @@
 }           </code></pre>
 
             <p>
-                Therefore allowing me to create a <code>Ticket</code> with <code>Ticket::new()</code>, this also ensures that every newly created <code>Ticket</code> begins with
+                Thus allowing me to create a <code>Ticket</code> more conveniently with <code>Ticket::new()</code>, this also ensures that every newly created <code>Ticket</code> begins with
                 the <code>is_fixed</code> boolean set to <code>false</code>.
             </p>
         </section>
@@ -87,8 +87,8 @@ fn print(&amp;self) {
             <p>
                 The two methods here will also demonstrate the difference between immutable and mutable borrowing in Rust. <code>print()</code> uses <code>&amp;self</code>
                 because of its need to only read the ticket, while <code>fix()</code> uses <code>&amp;mut self</code> since it needs to change the value of <code>is_fixed</code>. In short:
-                <code>&amp;self</code> has read-only access, whilst <code>&amp;mut self</code> has permission to modify; all this is happening
-                while the ticket being borrowed is still owned by the code that created it; the methods used here only borrow access for as
+                <code>&amp;self</code> has read-only access, whilst <code>&amp;mut self</code> has permission to modify; this is all
+                while the ticket being borrowed is still being owned by the code that created it; the methods used here only borrow access for as
                 long as is needed.
             </p>
         </section>
