@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web UI/UX & Other Technologies</title>
+    <link rel="stylesheet" href="../project.css">
+</head>
+<body>
+    <div class="side">
+        <a class="home" href="../index.html">Home</a>
+
+        <nav>
+            <a href="#overview">Overview</a>
+            <a href="#webdev">Web Development</a>
+            <a href="#uiux">UI/UX Design</a>
+            <a href="#unity">Unity</a>
+            <a href="#othertech">Other Tech</a>
+            <a href="#takeaways">Takeaways</a>
+        </nav>
+    </div>
+
+    <main>
+        <h1>Web & Other Technologies</h1>
+
+        <section id="overview">
+            <h2>Overview</h2>
+            In this project, I will share how I went about building this site, the HTML, CSS and JavaScript
+            I used to do so, the UI/UX considerations I took when planning out the site's layout and style,
+            how I used Git for version control and GitHub to host it with my custom domain, and lastly some
+            other miscellaneous technology I have experience with.
+        </section>
+
+        <section id="webdev">
+            <h2>Web Development</h2>
+
+            <h3>This Website</h3>
+
+            <p>
+                I built this website using raw HTML and CSS rather than a web framework or something
+                like a frontend website builder. This choice allowed me greater customisation
+                and much more direct control over elements and styling
+                than if I had used something a bit more abstract, like Wix or Squarespace for example;
+                Using just raw HTML and CSS also manages to make the site quite minimal and performant,
+                which is a somewhat of a priority that I always obssess over and enjoy aiming to achieve.
+            </p>
+
+            <h3>HTML</h3>
+
+            <p>
+                To organise my content I used elements such as <code>&lt;section&gt;</code> to segment off sections,
+                <code>&lt;main&gt;</code> to keep my main content separate from the navigation
+                (<code>&lt;nav&gt;</code>). I used <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> together
+                to display code blocks, with just <code>&lt;code&gt;</code> alone for inlining a monospace font. And lastly used
+                <code>&lt;p&gt;</code> for paragraphs and content along with <code>&lt;img&gt;</code> for media.
+            </p>
+
+            <img src="../images/html.png">
+
+            <h3>CSS</h3>
+
+            <p>
+                On the index page for the project cards, I used styled the normally inline
+                <code>&lt;a&gt;</code> hyperlink element to act as a block element
+                giving me full control of its padding, margin and border.
+                On my project pages but unlike index, I used
+                the grid layout allowing me to create a <code>sticky</code> navigation sidebar with anchor links.
+                The rest of my CSS was mainly adjusting the padding and margin, adding borders and tweaking colours.
+                I tried to only touch the bottom margin to keep things predictable and easy to
+                reason and understand.
+            </p>
+
+            <img src="../images/css.png">
+
+            <h3>JavaScript</h3>
+        </section>
+
+        <section id="uiux">
+            <h2>UI/UX Design</h2>
+
+            <p>
+                My general aim was to mimic a clean documentation/wiki looking site,
+                while reducing as much noise as possible with all focus on the
+                content, reducing the risk of possible confusion of where to click next.
+                I chose a light colour for daylight visibility but tinted it somewhat red to be softer and easier on the eyes
+                than a pure #ffffff white, along with subtle contrast with the card and code blocks.
+                I also created a contrast between header text and supporting text, to guide the eyes to more important elements
+                and lessen visual clutter.
+                The formatting of index page and general header elements
+                was chosen to be left-alligned, as I find centre-alligned headers a little less appealing.
+            </p>
+
+            <p>
+                In general I tried to keep each <code>&lt;section&gt;</code>'s bottom margin 55px so there was a gap for 1. Easier mental
+                compartmentalisation, and 2. When clicking an anchor link, it brings you exactly to the start of the
+                <code>&lt;section&gt;</code>
+                without any previous <code>&lt;section&gt;</code>'s text above it.
+            </p>
+        </section>
+
+        <section id="unity">
+            <h2>Unity</h2>
+        </section>
+
+        <section id="othertech">
+            <h2>Other Tech</h2>
+        </section>
+
+        <section id="takeaways">
+            <h2>Takeaways</h2>
+        </section>
+    </main>
+</body>
+</html>
