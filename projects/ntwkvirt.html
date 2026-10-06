@@ -68,7 +68,7 @@ DNS:     192.168.29.2</code></pre>
 
             <p>
                 The /24 (alternatively written: 255.255.255.0) prefix, plus the IP, is what defines the local subnet and its size. Because internet destinations are outside this subnet,
-                traffic that doesn't have a more specified route will be sent to my default gateway at 192.168.29.2.
+                traffic that doesn't have a more specific route will be sent to my default gateway at 192.168.29.2.
             </p>
             <p>
                  It's also worth noting, most of this configuration was supplied through DHCP rather than being manually configured.
@@ -79,7 +79,7 @@ DNS:     192.168.29.2</code></pre>
                 will give you it.
             </p>
             <p>
-                I inspected the local ARP table using:
+                To inspect the local ARP table's list of MAC addresses, I used:
             </p>
 
             <pre><code>arp -a</code></pre>
@@ -88,20 +88,20 @@ DNS:     192.168.29.2</code></pre>
 
             <p>
                 ARP's purpose is to map local IPv4 addresses to MAC addresses, it is somewhat like an IP to MAC translator. When your device has an IP address, like the default gateway's IP for example,
-                it needs to "ARP" for the gateway's MAC address so it can pinpoint exactly which device the IP address belongs to, without the MAC address, your device wouldn't really
-                know what to do with the IP; but with it, it can understand exactly who is who, and where to go next on your local network.
+                it needs to first "ARP" for the gateway's MAC address so it can pinpoint which device the IP address belongs to. Without the MAC address, your device wouldn't really
+                know what to do with the IP; but with the MAC address it can understand exactly who is who, and where to go next on your local network.
             </p>
 
             <p>
                 Here's the general process so far:
             </p>
             <p>
-                Try to connect to github.com → Ask DNS server to resolve the domain → Receive the domain's IP address → Windows sees that the IP address
+                Try to connect to github.com → Ask a DNS server to resolve the domain → Receive the domain's IP address → Windows sees that the IP address
                 lies outside your local subnet → ARP for default gateway's MAC address → Connect to default gateway.
             </p>
 
             <p>
-                Obviously for the sake of simplicity and brevity, there are a few more steps involved than this, but it's the basic picture.
+                Obviously for the sake of simplicity and brevity, there are a few more steps involved and a few I left out, but it's the basic picture.
             </p>
         </section>
 
@@ -109,7 +109,8 @@ DNS:     192.168.29.2</code></pre>
             <h2>From Gateway to Internet</h2>
 
             <p>
-                Now to send network traffic beyond the local subnet and towards the internet, Windows will consult its local routing table to determine the next hop.
+                Now to send network traffic beyond the local subnet and towards the internet, Windows will first need to consult its routing table.
+                If it can't find a specific route, Windows will default to using its default route.
             </p>
 
             <p>I found my virtual machine's default route via:</p>
@@ -119,7 +120,7 @@ DNS:     192.168.29.2</code></pre>
             <img src="../images/getnetroute.png">
 
             <p>
-                0.0.0.0/0 is the route used when Windows doesn't have a more specific route for the destination. For my case,
+                0.0.0.0/0 is the route Windows will take when it doesn't have a more specific route for the destination. For my case,
                 this route causes the traffic to be sent to the default gateway.
             </p>
 

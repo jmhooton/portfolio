@@ -238,8 +238,8 @@ else {
 
             <h3>So how does it work?</h3>
             <p>
-                The script uses <code>Get-NetIPConfiguration</code> to retrieve network info, it then filters that for an interface which also has a default
-                gateway; this avoids selecting otherwise disconnected or currently unused adapters.
+                The script uses <code>Get-NetIPConfiguration</code> to retrieve network information and filters it for an interface that also has a default
+                gateway; this will also generally avoid selecting otherwise disconnected or local-only interfaces.
             </p>
             <p>
                 After this it performs multiple checks with if-else conditional-logic testing a few different connections. The first test with the output "Internet"
