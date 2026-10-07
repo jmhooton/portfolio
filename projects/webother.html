@@ -25,10 +25,13 @@
 
         <section id="overview">
             <h2>Overview</h2>
-            In this project, I will share how I went about building this site, the HTML, CSS and JavaScript
-            I used to do so, the UI/UX considerations I took when planning out the site's layout and style,
-            how I used Git for version control and GitHub to host it with my custom domain, and lastly some
-            other miscellaneous technology I have experience with.
+            <p>
+                In this project, I will share how I went about building this site, the HTML, CSS and JavaScript
+                I used to do so, the UI/UX considerations I took when planning out the site's layout and style,
+                how I used Git for version control and GitHub to host it with my custom domain, and lastly some
+                other miscellaneous technology I have experience with.
+            </p>
+        
         </section>
 
         <section id="webdev">
@@ -64,28 +67,28 @@
                 <code>&lt;a&gt;</code> hyperlink element to act as a block element,
                 giving me full control of its padding, margin and border.
                 On my project pages but unlike the index, I used
-                a grid layout allowing me to create a <code>sticky</code> navigation sidebar with anchor links.
+                a grid layout allowing me to create a <code>sticky</code> navigation sidebar with anchorlinks.
             </p>
             
             <p>
                 The rest of my CSS was mainly adjusting the padding and margin, adding borders and tweaking colours.
                 However I tried to only touch the bottom margin, as to keep things somewhat predictable and easy to
-                understand and reason about.
+                reason about.
             </p>
 
             <img src="../images/css.png">
 
-            <h3>JavaScript</h3>
+            <h3>JavaScript Commit Tracker</h3>
 
             <p>
-                Near the bottom of my index page, I have made a commit tracker that provides how long ago my latest commit to this site
-                was, along with it quite nicely doubling as a link to the repo that it's tracking.
+                Near the bottom of my index page, I made tracker which provides how long ago my latest commit to the site
+                was, along with it quite nicely doubling as a hyperlink to the repository it's tracking.
             </p>
             
             <p>
                 To get the data needed for this script, I sent a request to GitHubs REST API to retrieve the
-                latest commit data. After receiving the JSON, I ran a callback function to parse it into something
-                JavaScript can use, then used another callback function that received the data,
+                latest commit data. After I had the JSON, I ran a callback function to parse it into something
+                JavaScript can use, then used another callback function that received that data,
                 accessed the commit date,
                 and created a <code>Date</code> object from it for later manipulation:
             </p>
@@ -96,13 +99,15 @@
         const commitDate = new Date(commits[0].commit.committer.date);
     })</code></pre>
 
+            <h3>Date Conversion</h3>
+
             <p>
                 Next I needed to convert the date into days, hours and minutes. I used the <code>Date.now()</code> method to get the time
                 in milliseconds,
                 I subtracted my <code>commitDate</code> from that value to get the current time elapsed since
                 my latest commit and stored that in a variable.
                 However the value I'm left with is still unreadable, so I needed to do a bit of division with
-                modulo operator usage, to convert that number into something more friendly for most humans.
+                modulo operator usage, to convert that number into something a bit more friendly for (most) humans.
             </p>
 
             <pre><code>const resultMinutes = Math.floor((Date.now() - commitDate.getTime()) / 60000);
@@ -110,12 +115,14 @@ const days = Math.floor(resultMinutes / 1440);
 const hours = Math.floor((resultMinutes % 1440) / 60);
 const minutes = resultMinutes % 60;</code></pre>
 
+            <h3>Conditionals and DOM Manipulation</h3>
+
             <p>
                 After I had all the necessary variables assigned, I used conditional logic to determine which values should
-                be displayed. The first two branches check whether <code>days</code> or <code>hours</code> contain a value that is greater than zero,
-                if they do, the DOM will be edited. The edit will include the value
-                along with any other smaller values further down the conditional ladder and
-                wrapped with surrounding text to make it readable.
+                be displayed. The first two branches check whether <code>days</code> or <code>hours</code> contains a value that's greater than zero,
+                if true, the DOM will be edited with that value. The edit would also include
+                any other smaller values further down the conditional ladder and be additionally
+                wrapped with surrounding text for better legibility.
             </p>
 
             <pre><code>const lastCommit = document.getElementById("lastcommit");
@@ -127,7 +134,7 @@ else
     lastCommit.textContent = "Last commit " + minutes + "m ago "</code></pre>
             <p>
                 The time arithmetic and DOM edit are encapsulated in a function,
-                which is then called every 60 seconds via <code>setInterval()</code>, allowing
+                which is then subsequently called every 60 seconds via <code>setInterval()</code>, allowing
                 the DOM to update without requiring any more API requests.
             </p>
 
@@ -167,25 +174,27 @@ else
             <h2>UI/UX Design</h2>
 
             <p>
-                My general aim was to mimic a clean documentation/wiki looking site,
-                while reducing as much noise as possible with all focus on
-                content, reducing the risk of possible confusion of where to click next.
+                For this website, my general aim was to mimic clean sleak documentation/wiki looking pages while boasting a very low friction home page to access them.
+                Reducing noise as much noise as possible with all focus on
+                content, and minimising the risk of possible confusion of where to click next was my main priority.
             </p>
             
+            <h3>What I did</h3>
+
             <p>
-                I chose a light colour for daylight visibility but tinted it somewhat red to be softer and easier on the eyes
-                than a pure #ffffff white, along with subtle contrast with the card and code blocks.
-                I also created a contrast between header text and supporting text, to guide the eyes to more important elements
+                I chose a light colour for daylight visibility but tinted it somewhat red to be softer on the eyes
+                than a pure #ffffff white, along with giving subtle contrast between the card, code blocks and background.
+                I also created a contrast between header text and supporting text, to easier guide the eyes to more important elements
                 and lessen visual clutter.
                 The formatting of index page and general header elements
-                was chosen to be left-alligned, as I find centre-alligned headers a little less appealing.
+                was chosen to be left-alligned, as I find centre-alligned headers a little less appealing on less complex websites like this.
             </p>
 
             <p>
-                In general I tried to keep each <code>&lt;section&gt;</code>'s bottom margin 55px so there was a gap for 1. Easier mental
-                compartmentalisation, and 2. When clicking an anchor link, it brings you exactly to the start of the
-                <code>&lt;section&gt;</code>
-                without any previous <code>&lt;section&gt;</code>'s text above it.
+                In general I tried to keep each <code>&lt;section&gt;</code>'s bottom margin 55px for, 1. Better spacing between major sections with easier mental
+                compartmentalisation and, 2. When clicking a sidebar-anchorlink: if the page has enough length below the section, allows the previous section's bottom margin to
+                give just enough buffer to hide its text or media;
+                creating really clean anchorlink destinations.
             </p>
         </section>
 
