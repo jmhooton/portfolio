@@ -40,7 +40,7 @@
                 I built this website using raw HTML and CSS rather than a web framework or something
                 like a frontend website builder. This choice allowed me greater customisation
                 and much more direct control over elements and styling
-                than if I had used something a bit more abstract, like Wix or Squarespace for example;
+                than if I had used something a bit more abstract, like for example, Wix, Squarespace and maybe WordPress.
                 Using just raw HTML and CSS also manages to make the site quite minimal and performant,
                 which is a somewhat of a priority that I obssess over and enjoy aiming to achieve.
             </p>
@@ -76,6 +76,91 @@
             <img src="../images/css.png">
 
             <h3>JavaScript</h3>
+
+            <p>
+                Near the bottom of my index page, I have made a commit tracker that provides how long ago my latest commit to this site
+                was, along with it quite nicely doubling as a link to the repo that it's tracking.
+            </p>
+            
+            <p>
+                To get the data needed for this script, I sent a request to GitHubs REST API to retrieve the
+                latest commit data. After receiving the JSON, I ran a callback function to parse it into something
+                JavaScript can use, then used another callback function that received the data,
+                accessed the commit date,
+                and created a <code>Date</code> object from it for later manipulation:
+            </p>
+
+            <pre><code>fetch("https://api.github.com/repos/jmhooton/portfolio/commits?sha=main&per_page=1")
+    .then(response => response.json())
+    .then(commits => {
+        const commitDate = new Date(commits[0].commit.committer.date);
+    })</code></pre>
+
+            <p>
+                Next I needed to convert the date into days, hours and minutes. I used the <code>Date.now()</code> method to get the time
+                in milliseconds,
+                I subtracted my <code>commitDate</code> from that value to get the current time elapsed since
+                my latest commit and stored that in a variable.
+                However the value I'm left with is still unreadable, so I needed to do a bit of division with
+                modulo operator usage, to convert that number into something more friendly for most humans.
+            </p>
+
+            <pre><code>const resultMinutes = Math.floor((Date.now() - commitDate.getTime()) / 60000);
+const days = Math.floor(resultMinutes / 1440);
+const hours = Math.floor((resultMinutes % 1440) / 60);
+const minutes = resultMinutes % 60;</code></pre>
+
+            <p>
+                After I had all the necessary variables assigned, I used conditional logic to determine which values should
+                be displayed. The first two branches check whether <code>days</code> or <code>hours</code> contain a value that is greater than zero,
+                if they do, the DOM will be edited. The edit will include the value
+                along with any other smaller values further down the conditional ladder and
+                wrapped with surrounding text to make it readable.
+            </p>
+
+            <pre><code>const lastCommit = document.getElementById("lastcommit");
+if (days > 0)
+    lastCommit.textContent = "Last commit " + days + "d " + hours + "h " + minutes + "m ago "
+else if (hours > 0)
+    lastCommit.textContent = "Last commit " + hours + "h " + minutes + "m ago "
+else
+    lastCommit.textContent = "Last commit " + minutes + "m ago "</code></pre>
+            <p>
+                The time arithmetic and DOM edit are encapsulated in a function,
+                which is then called every 60 seconds via <code>setInterval()</code>, allowing
+                the DOM to update without requiring any more API requests.
+            </p>
+
+            <pre><code>setInterval(time, 60000);</code></pre>
+            
+            <p>
+               Here is the full script: 
+            </p>
+
+            <pre><code>fetch("https://api.github.com/repos/jmhooton/portfolio/commits?sha=main&per_page=1")
+    .then(response => response.json())
+    .then(commits => {
+        const commitDate = new Date(commits[0].commit.committer.date);
+
+        function time() {
+            const resultMinutes = Math.floor((Date.now() - commitDate.getTime()) / 60000);
+            const days = Math.floor(resultMinutes / 1440);
+            const hours = Math.floor((resultMinutes % 1440) / 60);
+            const minutes = resultMinutes % 60;
+
+            const lastCommit = document.getElementById("lastcommit");
+            if (days > 0)
+                lastCommit.textContent = "Last commit " + days + "d " + hours + "h " + minutes + "m ago "
+            else if (hours > 0)
+                lastCommit.textContent = "Last commit " + hours + "h " + minutes + "m ago "
+            else
+                lastCommit.textContent = "Last commit " + minutes + "m ago "
+        }
+
+        time();
+        setInterval(time, 60000);
+    });</code></pre>
+
         </section>
 
         <section id="uiux">

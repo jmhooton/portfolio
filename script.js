@@ -1,8 +1,7 @@
 fetch("https://api.github.com/repos/jmhooton/portfolio/commits?sha=main&per_page=1")
     .then(response => response.json())
     .then(commits => {
-        const commitTime = commits[0].commit.committer.date;
-        const commitDate = new Date(commitTime);
+        const commitDate = new Date(commits[0].commit.committer.date);
 
         function time() {
             const resultMinutes = Math.floor((Date.now() - commitDate.getTime()) / 60000);
