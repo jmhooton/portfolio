@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web UI/UX & Other Technologies</title>
+    <title>Web and Git</title>
     <link rel="stylesheet" href="../project.css">
 </head>
 <body>
@@ -14,21 +14,21 @@
             <a href="#overview">Overview</a>
             <a href="#webdev">Web Development</a>
             <a href="#uiux">UI/UX Design</a>
-            <a href="#unity">Unity</a>
-            <a href="#othertech">Other Tech</a>
+            <a href="#git">Git & GitHub</a>
             <a href="#takeaways">Takeaways</a>
         </nav>
     </div>
 
     <main>
         <h1>Web & Other Technologies</h1>
+        <p class="h1p">HTML, CSS, JavaScript and Git.</p>
 
         <section id="overview">
             <h2>Overview</h2>
             <p>
                 In this project, I will share how I went about building this site, the HTML, CSS and JavaScript
                 I used to do so, the UI/UX considerations I took when planning out the site's layout and style,
-                how I used Git for version control and GitHub to host it with my custom domain, and lastly some
+                how I used Git for version control and GitHub to host it with a custom domain, and lastly some
                 other miscellaneous technology I have experience with.
             </p>
         
@@ -141,7 +141,7 @@ else
             <pre><code>setInterval(time, 60000);</code></pre>
             
             <p>
-               Here is the full script: 
+               Here is the full tracker: 
             </p>
 
             <pre><code>fetch("https://api.github.com/repos/jmhooton/portfolio/commits?sha=main&per_page=1")
@@ -198,13 +198,65 @@ else
             </p>
         </section>
 
-     <!--   <section id="othertech">-->
-        <!--    <h2>Other Tech</h2>-->
-    <!--    </section>       -->
+        <section id="git">
+            <h2>Git & GitHub</h2>
 
-     <!--   <section id="takeaways"> -->
-     <!--       <h2>Takeaways</h2>  -->
-    <!--    </section>       -->
+            <p>
+                I used Git all throughout the development of the website to keep track of different versions and changes to it. Instead of normally uploading changes
+                directly to a hosted copy of the website, I worked from a local repository and committed as I changed and completed different parts of the website.
+            </p>
+
+            <p>
+                Here are some basic Git commands I was using:
+            </p>
+
+            <pre><code>git status
+git add .
+git commit -m "update site"
+git push</code></pre>
+
+            <p>
+                <code>git status</code> shows you the current state of the working tree and staging area, showing things like staged, unstaged and untracked files.
+                <code>git add .</code> stages unstaged changes located in the current working directory and subdirectories, excluding directories and files in your .gitignore.
+                <code>git commit</code> creates a new commit from the staged changes and updates Git's history, with a message between the quotes in: <code>-m ""</code>, to annotate your commit.
+                And lastly <code>git push</code> (after setting up a remote) pushes the commits to a preconfigured remote repository, and for my case, that would be GitHub.
+            </p>
+            
+            <h3>GitHub Repository</h3>
+
+            <p>
+                After creating, staging and committing changes locally with Git, I used a hosting service to host my repository. I decided to use GitHub for this purpose
+                as they provide free and easy website deployment through GitHub Pages. However GitHub is just one of the many repository hosting services I could have used,
+                as there are hosts such as GitLab, Codeberg, sourcehut among others.
+            </p>
+
+            <h3>GitHub Pages & Custom Domain</h3>
+
+            <p>
+                After getting my repository onto GitHub, I utilised GitHub Pages so my website would automatically get deployed with my changes each time I pushed my updated repository to GitHub's servers.
+                GitHub Pages takes the static HTML, CSS and JavaScript and serves them as a public website for anyone to be able to visit.
+            </p>
+
+            <p>
+                If you don't touch anything domain related on GitHub, by default it will provide a domain that will look like: "YOURNAME.github.io/YOURREPO". However I instead configured my site to use the custom
+                domain "jmhooton.com" I acquired through a domain registrar. To do so, I had to configure the domain's DNS records to point towards GitHub's Pages service, allowing me to continue hosting my
+                website on GitHub but sporting a different URL.
+            </p>
+        </section>
+
+        <section id="takeaways">
+        <h2>Takeaways</h2>
+        
+        <p>
+            Building and maintaining this website gave me a decent bit more hands-on experience with HTML, CSS, JavaScript than I had previously. It revitalised my previous knowledge and increased my comfort and familiarity with the languages
+            substantially. Learning more about utilising APIs via my tracker script and increasing my understanding of JSON was very insightful.
+            I also feel a lot more experienced using Git and got more familiar with how hosting services like GitHub work.
+        </p>
+        <p>    
+            Overall I feel a lot more confident with my experience in
+            web development and do hope to exercise and expand on my learning further in the future.
+        </p>
+        </section>
     </main>
 </body>
 </html>
