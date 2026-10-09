@@ -138,6 +138,28 @@ fn print(&amp;self) {
                 and return immediately. However, if the loop finishes and does not find a match, the program reports that the
                 ticket could not be found.
             </p>
+
+            <p>
+                Also added a count function, utilising the previous concepts:
+            </p>
+
+            <pre><code>fn count_fixed(tickets: &[Ticket]) -> usize {
+    let mut count = 0;
+
+    for ticket in tickets {
+        if ticket.is_fixed {
+            count += 1;
+        }
+    }
+
+    count
+}</code></pre>
+
+            <p>
+                An interesting thing you can see here is <code>count</code> lacking a semicolon. In Rust, blocks can return the value of the final expression
+                without a explicit <code>return</code> keyword. So in this case, the value of <code>count</code> becomes <code>count_fixed()</code>'s return value.
+            </p>
+
         </section>
 
         <section id="together">
@@ -181,10 +203,13 @@ print_tickets(&amp;tickets);</code></pre>
 #1 | wifi isnt working!! | Fixed? false
 #2 | browser wont open | Fixed? false
 #3 | the printers doing it again | Fixed? false
+~~~~~~~~~~~~~~
 Tickets after:
 #1 | wifi isnt working!! | Fixed? false
 #2 | browser wont open | Fixed? true
-#3 | the printers doing it again | Fixed? false</code></pre>
+#3 | the printers doing it again | Fixed? false
+~~~~~~~~~~~~~~
+Total fixed: 1</code></pre>
         
         <p class="link">
             <a href="https://github.com/jmhooton/portfolio/blob/main/rustsource/src/main.rs">Code</a>
