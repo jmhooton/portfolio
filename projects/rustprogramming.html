@@ -185,19 +185,23 @@ tickets.push(Ticket::new(
             <p>Then the same created collection, can be borrowed differently depending on what the program will require:</p>
 
             <pre><code>println!("Tickets before:");
-print_tickets(&amp;tickets);
+print_tickets(&tickets);
 
-fix_ticket(&amp;mut tickets, 2);
+fix_ticket(&mut tickets, 2);
+println!("~~~~~~~~~~~~~~");
 
 println!("Tickets after:");
-print_tickets(&amp;tickets);</code></pre>
+print_tickets(&tickets);
+
+println!("~~~~~~~~~~~~~~");
+println!("Total fixed: {}", count_fixed(&tickets));</code></pre>
 
             <p>
-                Here, <code>print_tickets(&amp;tickets)</code> only needs to borrow the collection for reading, whereas <code>fix_ticket(&amp;mut tickets, 2)</code> receives
+                Here, <code>print_tickets(&amp;tickets)</code> and <code>count_fixed(&amp;tickets)</code> only need to borrow the collection for reading, whereas <code>fix_ticket(&amp;mut tickets, 2)</code> receives
                 a mutable borrow, thus allowing changes to the stored <code>Ticket</code>s inside <code>tickets</code>.
             </p>
 
-            <p>Finally, running the program shows the second ticket's state change:</p>
+            <p>Finally, running the program will demonstrate the second ticket's state change with a before and after; and then printing total <code>is_fixed</code> tickets:</p>
 
             <pre><code>Tickets before:
 #1 | wifi isnt working!! | Fixed? false
