@@ -140,7 +140,7 @@ fn print(&amp;self) {
             </p>
 
             <p>
-                Also added a count function, utilising the previous concepts:
+                Next I added a count function, utilising the previous concepts:
             </p>
 
             <pre><code>fn count_fixed(tickets: &[Ticket]) -> usize {
@@ -159,6 +159,19 @@ fn print(&amp;self) {
                 An interesting thing you can see here is <code>count</code> lacking a semicolon. In Rust, blocks can return the value of the final expression
                 without a explicit <code>return</code> keyword. So in this case, the value of <code>count</code> becomes <code>count_fixed()</code>'s return value.
             </p>
+
+            <p>
+                Lastly I added an edit function, to edit the description of a ticket utilising mutable borrowing again:
+            </p>
+
+            <pre><code>fn edit_ticket(tickets: &mut [Ticket], number: u32, description: String) {
+    for ticket in tickets {
+        if ticket.number == number {
+            ticket.description = description;
+            return;
+        }
+    }
+}</code></pre>
 
         </section>
 
@@ -179,7 +192,7 @@ tickets.push(Ticket::new(
 ));
 tickets.push(Ticket::new(
     3,
-    String::from("the printers doing it again")
+    String::from("the printer's doing it again")
 ));         </code></pre>
 
             <p>Then the same created collection, can be borrowed differently depending on what the program will require:</p>
@@ -188,6 +201,7 @@ tickets.push(Ticket::new(
 print_tickets(&tickets);
 
 fix_ticket(&mut tickets, 2);
+edit_ticket(&mut tickets, 3, String::from("the printer's broken"));
 println!("~~~~~~~~~~~~~~");
 
 println!("Tickets after:");
@@ -197,21 +211,22 @@ println!("~~~~~~~~~~~~~~");
 println!("Total fixed: {}", count_fixed(&tickets));</code></pre>
 
             <p>
-                Here, <code>print_tickets(&amp;tickets)</code> and <code>count_fixed(&amp;tickets)</code> only need to borrow the collection for reading, whereas <code>fix_ticket(&amp;mut tickets, 2)</code> receives
+                Here, <code>print_tickets(&amp;tickets)</code> and <code>count_fixed(&amp;tickets)</code> only need to borrow the collection for reading, whereas <code>fix_ticket(&amp;mut tickets, u32)</code> and
+                <code>edit_ticket(&amp;mut tickets, u32, String)</code> receive
                 a mutable borrow, thus allowing changes to the stored <code>Ticket</code>s inside <code>tickets</code>.
             </p>
 
-            <p>Finally, running the program will demonstrate the second ticket's state change with a before and after; and then printing total <code>is_fixed</code> tickets:</p>
+            <p>Finally, running the program will demonstrate the second ticket's state change, and third ticket's description change with a before and after; and then printing total <code>is_fixed</code> tickets:</p>
 
             <pre><code>Tickets before:
 #1 | wifi isnt working!! | Fixed? false
 #2 | browser wont open | Fixed? false
-#3 | the printers doing it again | Fixed? false
+#3 | the printer's doing it again | Fixed? false
 ~~~~~~~~~~~~~~
 Tickets after:
 #1 | wifi isnt working!! | Fixed? false
 #2 | browser wont open | Fixed? true
-#3 | the printers doing it again | Fixed? false
+#3 | the printer's broken | Fixed? false
 ~~~~~~~~~~~~~~
 Total fixed: 1</code></pre>
         

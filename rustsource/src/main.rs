@@ -54,6 +54,15 @@ fn count_fixed(tickets: &[Ticket]) -> usize {
     count
 }
 
+fn edit_ticket(tickets: &mut [Ticket], number: u32, description: String) {
+    for ticket in tickets {
+        if ticket.number == number {
+            ticket.description = description;
+            return;
+        }
+    }
+}
+
 fn main() {
     let mut tickets: Vec<Ticket> = Vec::new();
 
@@ -67,13 +76,14 @@ fn main() {
     ));
     tickets.push(Ticket::new(
         3, 
-        String::from("the printers doing it again")
+        String::from("the printer's doing it again")
     ));
 
     println!("Tickets before:");
     print_tickets(&tickets);
 
     fix_ticket(&mut tickets, 2);
+    edit_ticket(&mut tickets, 3, String::from("the printer's broken"));
     println!("~~~~~~~~~~~~~~");
 
     println!("Tickets after:");
